@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <link rel="stylesheet" href="debtgraph.css">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Debt Control Calculator</title>
+  </head>
+  <body>
+    <div id="main_content">
+      <h1>Debt Control Calculator</h1>
+      <div id="left_panel">
+	<div id="results_area">
+	  <h4>Results</h4>
+	  <p>Under your plan, debt in 2017 will be <span id="score">86%</span> of GDP.</p>
+	</div>
+	<div id="slider_area">
+	  <div class="slideContainer">
+	    <h3>Spending</h3>
+	    <p>+</p>
+	    <div id="spending_slider" class="inputSlider"> </div>
+	    <p>-</p>
+	    <div class="inFieldContainer">
+	      <input type="text" id="spending_in" class="inputField" value="0"/><span>%</span>
+	    </div>
+	  </div>
+	  <div class="slideContainer">
+	    <h3>Revenue</h3>
+	    <p>+</p>
+	    <div id="revenue_slider" class="inputSlider"> </div>
+	    <p>-</p>
+	    <div class="inFieldContainer">
+	      <input type="text" id="revenue_in" class="inputField" value="0"/><span>%</span>
+	    </div>
+	  </div>
+	</div>
+      </div>
+      <div id="chart_area">
+	<div id="series_background">
+	  <div id="series_area"> </div>
+	</div>
+	<div id="end_background">
+	  <div id="end_area"> </div>
+	</div>
+      </div>
+    </div>
+  </body>
+  <!-- local scripts -->
+  <script src="chartdata.js"> </script>
+  <script src="debtgraph.js"> </script>
+</html>

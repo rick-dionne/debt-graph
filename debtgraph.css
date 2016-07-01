@@ -1,0 +1,70 @@
+#main_content {
+    width: 750px;
+    height: 700px;
+}
+
+#main_content h1 {
+    margin: 0px;
+    padding: 0px;
+}
+
+#left_panel {
+    float: left;
+    width: 210px;
+}
+
+#left_panel h3,h4 {
+    margin: 0px;
+    padding: 0px;
+    padding-top: 10px;
+}
+
+#left_panel p {
+    margin: 0px;
+    padding: 5px;
+}
+
+#left_panel #score {
+    font-weight: bold;
+}
+
+#slider_area {
+    height: 480px;
+}
+
+.slideContainer {
+    position: relative;
+    float: left;
+    text-align: center;
+    width: 105px;
+}
+
+.inputSlider {
+    width: 10px;
+    margin: 0 auto;
+    height: 380px;
+}
+
+.inFieldContainer {
+    padding-top: 10px;
+}
+
+.inputField {
+    width: 30px;
+    margin: 0 auto;
+    text-align: right;
+}
+
+#chart_area {
+    float: left;
+}
+
+#series_area {
+    height: 300px;
+    width: 540px;
+}
+
+#end_area {
+    height: 300px;
+    width: 540px;
+}
