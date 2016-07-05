@@ -1,6 +1,7 @@
 #main_content {
-    width: 750px;
+    width: 770px;
     height: 700px;
+    background-color: lightblue;
 }
 
 #main_content h1 {
@@ -58,9 +59,11 @@
 #series_area {
     height: 300px;
     width: 540px;
+    margin: 10px;
 }
 
 #end_area {
     height: 300px;
     width: 540px;
+    margin: 10px;
 }
