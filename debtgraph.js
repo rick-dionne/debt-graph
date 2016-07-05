@@ -5,8 +5,8 @@
  */
 
 /* slider ranges */
-const g_slider_min = -50;
-const g_slider_max =  50;
+var g_slider_min = -50;
+var g_slider_max =  50;
 
 var g_chart_loaded = false;
 google.charts.load('current', {packages: ['corechart']});
