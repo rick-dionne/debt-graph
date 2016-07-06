@@ -4,6 +4,9 @@
  * Rick Dionne, July 2016
  */
 
+/* prevent recursive loop */
+var updating = false;
+
 /* user baselines */
 var my_base_spend = g_base_spend;
 var my_base_rev   = g_base_rev;
@@ -15,9 +18,7 @@ var g_slider_max =  50;
 
 /* fixed target variables */
 var g_target_fixed = false;
-var g_target_val = 0 // (my_base_rev[0] * revpct) / (my_base_spend[0] * spendpct)
-var g_my_spend = g_base_spend[0];
-var g_my_rev   = g_base_rev[0];
+var g_target_val = 0
 
 /* chart loaded flag */
 var g_chart_loaded = false;
@@ -29,39 +30,51 @@ google.charts.setOnLoadCallback(chartLoaded);
 /* initialize input elements */
 function chartLoaded() {
     // initialize sliders
-    $("#spending_slider, #revenue_slider").slider({
-	orientation: "vertical",
+    $('#spending_slider, #revenue_slider').slider({
+	orientation: 'vertical',
 	min: g_slider_min,
 	max: g_slider_max,
 	value: 0
     });
-    $("#spending_slider").slider({
+    $('#spending_slider').slider({
 	change: function(event, ui) {
-	    slideUpdateFunc("#spending_slider","#spending_in");
+	    slideUpdateFunc('spending','revenue', solveForRev, solveForSpend);
 	},
 	slide: function(event, ui) {
-	    slideUpdateFunc("#spending_slider","#spending_in");
+	    slideUpdateFunc('spending','revenue', solveForRev, solveForSpend);
 	}
     });
-    $("#revenue_slider").slider({
+    $('#revenue_slider').slider({
 	change: function(event, ui) {
-	    slideUpdateFunc("#revenue_slider","#revenue_in");
+	    slideUpdateFunc('revenue','spending', solveForSpend, solveForRev);
 	},
 	slide: function(event, ui) {
-	    slideUpdateFunc("#revenue_slider","#revenue_in");
+	    slideUpdateFunc('revenue','spending', solveForSpend, solveForRev);
 	}
     });
 
     // initialize text inputs
-    $("#spending_in").change(function() {
-	textUpdateFunc("#spending_in","#spending_slider");
+    $('#spending_in').change(function() {
+	textUpdateFunc('spending');
     });
-    $("#revenue_in").change(function() {
-	textUpdateFunc("#revenue_in","#revenue_slider");
+    $('#revenue_in').change(function() {
+	textUpdateFunc('revenue');
     });
-    $("#main_content select").change(function() {
-	updateBaseSettings($("#plan_selector").val());
+
+    // initialize plan selector
+    $('#plan_selector').change(function() {
+	updateBaseSettings($('#plan_selector').val());
 	mainCalculate();
+    });
+
+    // initialize fixed target checkbox
+    $('input[type=checkbox]').change(function() {
+	if (this.checked) {
+	    g_target_fixed = true;
+	    setTarget();
+	} else {
+	    g_target_fixed = false;
+	}
     });
 
     // calculate and display chart
@@ -69,31 +82,62 @@ function chartLoaded() {
     mainCalculate();
 }
 
+function setTarget() {
+    var spendpct = $('#spending_slider').slider('option', 'value');
+    var revpct   = $('#revenue_slider').slider('option', 'value');
+    g_target_val = (my_base_spend[9] * spendpct) - (my_base_rev[9] * revpct);
+}
+
+function solveForSpend(revpct) {
+    return ((g_target_val + (revpct * my_base_rev[9])) / my_base_spend[9]).toFixed();
+}
+
+function solveForRev(spendpct) {
+    return (((spendpct * my_base_spend[9]) - g_target_val) / my_base_rev[9]).toFixed();
+}
+
 function updateBaseSettings(plan) {
     switch (plan) {
-    case "Clinton Plan":
+    case 'Clinton Plan':
 	my_base_rev = g_clinton_rev;
 	my_base_spend = g_clinton_spend;
 	my_base_debt = g_clinton_debt;
 	break;
-    case "Trump Plan":
+    case 'Trump Plan':
 	my_base_rev = g_trump_rev;
 	my_base_spend = g_trump_spend;
 	my_base_debt = g_trump_debt;
  	break;
-    case "Current Law":
+    case 'Current Law':
     default:
 	my_base_rev = g_base_rev;
 	my_base_spend = g_base_spend;
 	my_base_debt = g_base_debt;
     }
+    $('#target_fixed').prop('checked',false);
+    g_target_fixed = false;
 }
 
 /* update associated text input, recalculate */
-function slideUpdateFunc(src, tgt) {
+function slideUpdateFunc(src, tgt, func, otherfunc) {
     try {
-	var val = $(src).slider("option","value");
-	$(tgt).val(val);
+	var val = $('#'+src+'_slider').slider('option','value');
+	if (g_target_fixed && !updating) {
+	    updating = true;
+	    var otherval = func(val);
+	    if (otherval > g_slider_max) {
+		otherval = g_slider_max;
+		val = otherfunc(otherval);
+		$('#'+src+'_slider').slider('value',val);
+	    } else if (otherval < g_slider_min) {
+		otherval = g_slider_min;
+		val = otherfunc(otherval);
+		$('#'+src+'_slider').slider('value',val);		
+	    }
+	    $('#'+tgt+'_slider').slider('value',otherval);
+	    updating = false;
+	}
+	$('#'+src+'_in').val(val);
 	mainCalculate();
     } catch(ex) {
 	console.log(ex);
@@ -101,9 +145,9 @@ function slideUpdateFunc(src, tgt) {
 }
 
 /* update asssociated slider, recalculate */
-function textUpdateFunc(src, tgt) {
+function textUpdateFunc(src) {
     try {
-	var val = $(src).val();
+	var val = $('#'+src+'_in').val();
 	val = val.replace(/^\d.-/g,'');
 	val = Math.round(val*1);
 	if (isNaN(val))
@@ -112,8 +156,7 @@ function textUpdateFunc(src, tgt) {
 	    val = g_slider_min;
 	else if ($(src).val() > g_slider_max)
 	    val = g_slider_max;
-	$(src).val(val);
-	$(tgt).slider('value',$(src).val());
+	$('#'+src+'_slider').slider('value',$('#'+src+'_in').val());
 	mainCalculate();
     } catch(ex) {
 	console.log(ex);
@@ -122,8 +165,8 @@ function textUpdateFunc(src, tgt) {
 
 /* feed inputs into chart creation */
 function mainCalculate() {
-    var spendpct = $("#spending_slider").slider("option", "value");
-    var revpct   = $("#revenue_slider").slider("option", "value");
+    var spendpct = $('#spending_slider').slider('option', 'value');
+    var revpct   = $('#revenue_slider').slider('option', 'value');
     if (g_chart_loaded) {
 	drawChart(spendpct, revpct);
     }
@@ -234,5 +277,5 @@ function drawChart(spendpct, revpct) {
     endChart.draw();
 
     // update text
-    $( "#score" ).html( (100 * seriesData.getValue(9,4)).toFixed() + "%" );
+    $( '#score' ).html( (100 * seriesData.getValue(9,4)).toFixed() + '%' );
 }
