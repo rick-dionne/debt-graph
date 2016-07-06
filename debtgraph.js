@@ -12,15 +12,16 @@ var g_chart_loaded = false;
 google.charts.load('current', {packages: ['corechart']});
 google.charts.setOnLoadCallback(chartLoaded);
 
+/* initialize input elements */
 function chartLoaded() {
     // initialize sliders
     $("#spending_slider, #revenue_slider").slider({
-	orientation: "vertical"
-    });
-    $("#spending_slider").slider({
+	orientation: "vertical",
 	min: g_slider_min,
 	max: g_slider_max,
-	value: 0,
+	value: 0
+    });
+    $("#spending_slider").slider({
 	change: function(event, ui) {
 	    slideUpdateFunc("#spending_slider","#spending_in");
 	},
@@ -29,9 +30,6 @@ function chartLoaded() {
 	}
     });
     $("#revenue_slider").slider({
-	min: g_slider_min,
-	max: g_slider_max,
-	value: 0,
 	change: function(event, ui) {
 	    slideUpdateFunc("#revenue_slider","#revenue_in");
 	},
@@ -56,6 +54,7 @@ function chartLoaded() {
     mainCalculate();
 }
 
+/* update associated text input, recalculate */
 function slideUpdateFunc(src, tgt) {
     try {
 	var val = $(src).slider("option","value");
@@ -66,6 +65,7 @@ function slideUpdateFunc(src, tgt) {
     }
 }
 
+/* update asssociated slider, recalculate */
 function textUpdateFunc(src, tgt, min, max) {
     try {
 	var val = $(src).val();
@@ -83,6 +83,7 @@ function textUpdateFunc(src, tgt, min, max) {
     }
 }
 
+/* feed inputs into chart creation */
 function mainCalculate() {
     var spendpct = $("#spending_slider").slider("option", "value");
     var revpct   = $("#revenue_slider").slider("option", "value");
@@ -92,6 +93,7 @@ function mainCalculate() {
     }
 }
 
+/* prepare and draw charts */
 function drawChart(spendpct, revpct, plan) {
     var my_base_rev, my_base_spend, my_base_debt;
     switch (plan) {
@@ -165,7 +167,10 @@ function drawChart(spendpct, revpct, plan) {
 	    },
 	    1: { color: 'blue' },
 	    2: { color: 'red' },
-	    3: { color: 'green' }
+	    3: {
+		color: 'green',
+		lineDashStyle: [15,5]
+	    }
 	}
     };
     var seriesChart = new google.visualization.ChartWrapper({
