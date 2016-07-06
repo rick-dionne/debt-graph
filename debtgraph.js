@@ -4,14 +4,22 @@
  * Rick Dionne, July 2016
  */
 
+/* user baselines */
+var my_base_spend = g_base_spend;
+var my_base_rev   = g_base_rev;
+var my_base_debt  = g_base_debt;
+
 /* slider ranges */
 var g_slider_min = -50;
 var g_slider_max =  50;
 
-/* latest slider values */
-var g_latest_spending = 0;
-var g_latest_revenue  = 0;
+/* fixed target variables */
+var g_target_fixed = false;
+var g_target_val = 0 // (my_base_rev[0] * revpct) / (my_base_spend[0] * spendpct)
+var g_my_spend = g_base_spend[0];
+var g_my_rev   = g_base_rev[0];
 
+/* chart loaded flag */
 var g_chart_loaded = false;
 
 /* load charts and initialize inputs */
@@ -29,29 +37,30 @@ function chartLoaded() {
     });
     $("#spending_slider").slider({
 	change: function(event, ui) {
-	    slideUpdateFunc("#spending_slider","#spending_in", true);
+	    slideUpdateFunc("#spending_slider","#spending_in");
 	},
 	slide: function(event, ui) {
-	    slideUpdateFunc("#spending_slider","#spending_in", true);
+	    slideUpdateFunc("#spending_slider","#spending_in");
 	}
     });
     $("#revenue_slider").slider({
 	change: function(event, ui) {
-	    slideUpdateFunc("#revenue_slider","#revenue_in", false);
+	    slideUpdateFunc("#revenue_slider","#revenue_in");
 	},
 	slide: function(event, ui) {
-	    slideUpdateFunc("#revenue_slider","#revenue_in", false);
+	    slideUpdateFunc("#revenue_slider","#revenue_in");
 	}
     });
 
     // initialize text inputs
     $("#spending_in").change(function() {
-	textUpdateFunc("#spending_in","#spending_slider", true);
+	textUpdateFunc("#spending_in","#spending_slider");
     });
     $("#revenue_in").change(function() {
-	textUpdateFunc("#revenue_in","#revenue_slider", false);
+	textUpdateFunc("#revenue_in","#revenue_slider");
     });
     $("#main_content select").change(function() {
+	updateBaseSettings($("#plan_selector").val());
 	mainCalculate();
     });
 
@@ -60,55 +69,7 @@ function chartLoaded() {
     mainCalculate();
 }
 
-/* update associated text input, recalculate */
-function slideUpdateFunc(src, tgt, isSpending) {
-    try {
-	var val = $(src).slider("option","value");
-	$(tgt).val(val);
-	if (isSpending) {
-	    g_latest_spending = val;
-	} else {
-	    g_latest_revenue = val;
-	}
-	mainCalculate();
-    } catch(ex) {
-	console.log(ex);
-    }
-}
-
-/* update asssociated slider, recalculate */
-function textUpdateFunc(src, tgt, isSpending) {
-    try {
-	var val = $(src).val();
-	val = val.replace(/^\d.-/g,'');
-	val = Math.round(val*1);
-	if (isNaN(val))
-	    val = 0;
-	else if ($(src).val() < g_slider_min)
-	    val = g_slider_min;
-	else if ($(src).val() < g_slider_max)
-	    val = g_slider_max;
-	$(src).val(val);
-	$(tgt).slider('value',$(src).val());
-	mainCalculate();
-    } catch(ex) {
-	console.log(ex);
-    }
-}
-
-/* feed inputs into chart creation */
-function mainCalculate() {
-    var spendpct = $("#spending_slider").slider("option", "value");
-    var revpct   = $("#revenue_slider").slider("option", "value");
-    var plan = $("#plan_selector").val();
-    if (g_chart_loaded) {
-	drawChart(spendpct, revpct, plan);
-    }
-}
-
-/* prepare and draw charts */
-function drawChart(spendpct, revpct, plan) {
-    var my_base_rev, my_base_spend, my_base_debt;
+function updateBaseSettings(plan) {
     switch (plan) {
     case "Clinton Plan":
 	my_base_rev = g_clinton_rev;
@@ -126,6 +87,50 @@ function drawChart(spendpct, revpct, plan) {
 	my_base_spend = g_base_spend;
 	my_base_debt = g_base_debt;
     }
+}
+
+/* update associated text input, recalculate */
+function slideUpdateFunc(src, tgt) {
+    try {
+	var val = $(src).slider("option","value");
+	$(tgt).val(val);
+	mainCalculate();
+    } catch(ex) {
+	console.log(ex);
+    }
+}
+
+/* update asssociated slider, recalculate */
+function textUpdateFunc(src, tgt) {
+    try {
+	var val = $(src).val();
+	val = val.replace(/^\d.-/g,'');
+	val = Math.round(val*1);
+	if (isNaN(val))
+	    val = 0;
+	else if ($(src).val() < g_slider_min)
+	    val = g_slider_min;
+	else if ($(src).val() > g_slider_max)
+	    val = g_slider_max;
+	$(src).val(val);
+	$(tgt).slider('value',$(src).val());
+	mainCalculate();
+    } catch(ex) {
+	console.log(ex);
+    }
+}
+
+/* feed inputs into chart creation */
+function mainCalculate() {
+    var spendpct = $("#spending_slider").slider("option", "value");
+    var revpct   = $("#revenue_slider").slider("option", "value");
+    if (g_chart_loaded) {
+	drawChart(spendpct, revpct);
+    }
+}
+
+/* prepare and draw charts */
+function drawChart(spendpct, revpct) {
     var seriesData = new google.visualization.DataTable();
     seriesData.addColumn('date', 'Year');
     seriesData.addColumn('number', 'Current Law');
