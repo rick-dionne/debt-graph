@@ -8,7 +8,13 @@
 var g_slider_min = -50;
 var g_slider_max =  50;
 
+/* latest slider values */
+var g_latest_spending = 0;
+var g_latest_revenue  = 0;
+
 var g_chart_loaded = false;
+
+/* load charts and initialize inputs */
 google.charts.load('current', {packages: ['corechart']});
 google.charts.setOnLoadCallback(chartLoaded);
 
@@ -23,27 +29,27 @@ function chartLoaded() {
     });
     $("#spending_slider").slider({
 	change: function(event, ui) {
-	    slideUpdateFunc("#spending_slider","#spending_in");
+	    slideUpdateFunc("#spending_slider","#spending_in", true);
 	},
 	slide: function(event, ui) {
-	    slideUpdateFunc("#spending_slider","#spending_in");
+	    slideUpdateFunc("#spending_slider","#spending_in", true);
 	}
     });
     $("#revenue_slider").slider({
 	change: function(event, ui) {
-	    slideUpdateFunc("#revenue_slider","#revenue_in");
+	    slideUpdateFunc("#revenue_slider","#revenue_in", false);
 	},
 	slide: function(event, ui) {
-	    slideUpdateFunc("#revenue_slider","#revenue_in");
+	    slideUpdateFunc("#revenue_slider","#revenue_in", false);
 	}
     });
 
     // initialize text inputs
     $("#spending_in").change(function() {
-	textUpdateFunc("#spending_in","#spending_slider", g_slider_min, g_slider_max);
+	textUpdateFunc("#spending_in","#spending_slider", true);
     });
     $("#revenue_in").change(function() {
-	textUpdateFunc("#revenue_in","#revenue_slider", g_slider_min, g_slider_max);
+	textUpdateFunc("#revenue_in","#revenue_slider", false);
     });
     $("#main_content select").change(function() {
 	mainCalculate();
@@ -55,10 +61,15 @@ function chartLoaded() {
 }
 
 /* update associated text input, recalculate */
-function slideUpdateFunc(src, tgt) {
+function slideUpdateFunc(src, tgt, isSpending) {
     try {
 	var val = $(src).slider("option","value");
 	$(tgt).val(val);
+	if (isSpending) {
+	    g_latest_spending = val;
+	} else {
+	    g_latest_revenue = val;
+	}
 	mainCalculate();
     } catch(ex) {
 	console.log(ex);
@@ -66,17 +77,19 @@ function slideUpdateFunc(src, tgt) {
 }
 
 /* update asssociated slider, recalculate */
-function textUpdateFunc(src, tgt, min, max) {
+function textUpdateFunc(src, tgt, isSpending) {
     try {
 	var val = $(src).val();
 	val = val.replace(/^\d.-/g,'');
 	val = Math.round(val*1);
 	if (isNaN(val))
 	    val = 0;
+	else if ($(src).val() < g_slider_min)
+	    val = g_slider_min;
+	else if ($(src).val() < g_slider_max)
+	    val = g_slider_max;
 	$(src).val(val);
-	if ($(src).val() > min && $(src).val() < max) {
-	    $(tgt).slider('value',$(src).val());
-	}
+	$(tgt).slider('value',$(src).val());
 	mainCalculate();
     } catch(ex) {
 	console.log(ex);

@@ -20,13 +20,18 @@
 	    of GDP in 2026.</p>
 	</div>
 	<div id="base settings">
-	  <h4>Base Plan</h4>
+	  <h4>Settings</h4>
 	  <div class="input" id="plan_select_div">
-	    <select id="plan_selector">
-	      <option name="plan" id="radio_curr" selected>Current Law</option>
-	      <option name="plan" id="radio_clinton">Clinton Plan</option>
-	      <option name="plan" id="radio_trump">Trump Plan</option>
-	    </select>
+	    <form>
+	      <label for="plan_selector">Base Plan</label>
+	      <select name="plan_selector" id="plan_selector">
+		<option name="plan" id="radio_curr" selected>Current Law</option>
+		<option name="plan" id="radio_clinton">Clinton Plan</option>
+		<option name="plan" id="radio_trump">Trump Plan</option>
+	      </select><br>
+	      <label for="target_fixed">Target Fixed?</label>
+	      <input type="checkbox" name="target_fixed" value="fixed">
+	    </form>
 	  </div>
 	</div>
 	<div id="slider_area">

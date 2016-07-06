@@ -30,7 +30,7 @@
 }
 
 #slider_area {
-    height: 480px;
+    height: 450px;
 }
 
 .slideContainer {
@@ -43,7 +43,7 @@
 .inputSlider {
     width: 10px;
     margin: 0 auto;
-    height: 380px;
+    height: 350px;
 }
 
 .inputField {
