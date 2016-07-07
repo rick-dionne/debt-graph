@@ -14,7 +14,7 @@ var my_base_debt  = g_base_debt;
 
 /* slider ranges */
 var g_slider_min = -50;
-var g_slider_max =  50;
+var g_slider_max =  100;
 
 /* fixed target variables */
 var g_target_fixed = false;
