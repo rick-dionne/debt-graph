@@ -1,5 +1,5 @@
 #main_content {
-    width: 750px;
+    width: 720px;
     height: 680px;
     background-color: lightblue;
     padding: 10px;
@@ -12,14 +12,13 @@
 
 #left_panel {
     float: left;
-    width: 210px;
+    width: 220px;
 }
 
-#left_panel h3,h4 {
+#left_panel h3,h4,h5 {
     margin: 0px;
     padding: 0px;
-    padding-top: 10px;
-}
+} 
 
 #settings input,select {
     float: right;
@@ -35,20 +34,21 @@
 }
 
 #slider_area {
-    height: 350px;
+    margin-top: 10px;
+    height: 360px;
 }
 
 .slideContainer {
     position: relative;
     float: left;
     text-align: center;
-    width: 105px;
+    width: 110px;
 }
 
 .inputSlider {
     width: 10px;
     margin: 0 auto;
-    height: 250px;
+    height: 230px;
 }
 
 .inputField {
@@ -57,18 +57,23 @@
     text-align: right;
 }
 
+#reset_area {
+    padding-top: 5px;
+    text-align: center;
+}
+
 #chart_area {
     float: left;
 }
 
 #series_area {
-    height: 300px;
-    width: 520px;
+    height: 310px;
+    width: 480px;
     margin: 10px;
 }
 
 #end_area {
-    height: 300px;
-    width: 520px;
+    height: 310px;
+    width: 480px;
     margin: 10px;
 }

@@ -63,7 +63,8 @@ function chartLoaded() {
 
     // initialize plan selector
     $('#plan_selector').change(function() {
-	updateBaseSettings($('#plan_selector').val());
+	updateBaseSettings();
+	mainCalculate();
     });
 
     // initialize fixed target checkbox
@@ -76,12 +77,30 @@ function chartLoaded() {
 	}
     });
 
+    // initialize exclusion checkboxes
     $('.exclude input[type=checkbox]').change(function() {
-	updateBaseSettings($('#plan_selector').val());
+	updateBaseSettings();
+	mainCalculate();
     });
 
-    // calculate and display chart
+    // initialize reset button
+    $('#reset_area input[type=button]').click(function() {
+	reset();
+    });
+
+    // calculate and display charts
     g_chart_loaded = true;
+    updateBaseSettings();
+    mainCalculate();
+}
+
+function reset() {
+    $('#target_fixed').prop('checked', false);
+    g_target_fixed = false;
+    $('#revenue_slider').slider('value', 0);
+    $('#spending_slider').slider('value', 0);
+    $('.exclude input[type=checkbox]').prop('checked', false);
+    updateBaseSettings();
     mainCalculate();
 }
 
@@ -99,7 +118,8 @@ function solveForRev(spendpct) {
     return (((spendpct * my_base_spend[9]) - g_target_val) / my_base_rev[9]).toFixed();
 }
 
-function updateBaseSettings(plan) {
+function updateBaseSettings() {
+    var plan = $('#plan_selector').val();
     switch (plan) {
     case 'Clinton Plan':
 	my_base_rev = g_clinton_rev;
@@ -128,12 +148,14 @@ function updateBaseSettings(plan) {
 	    t_base_spend[i] -= g_medicare_cost[i];
 	if ($('#defense_exclude').prop('checked'))
 	    t_base_spend[i] -= g_defense_cost[i];
+
+	// invert spending
+	t_base_spend[i] *= -1;
     }
     my_base_spend = t_base_spend;
     
     $('#target_fixed').prop('checked',false);
     g_target_fixed = false;
-    mainCalculate();
 }
 
 /* update associated text input, recalculate */
