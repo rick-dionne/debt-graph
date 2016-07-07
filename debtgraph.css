@@ -26,16 +26,20 @@
 
 #left_panel p {
     margin: 0px;
-    padding: 5px;
+    padding: 0px;
+    font-size: 11pt;
 }
 
 #left_panel #score {
     font-weight: bold;
+    display: inline-block;
+    width: 40px;
+    text-align: right;
 }
 
 #slider_area {
     margin-top: 10px;
-    height: 370px;
+    height: 400px;
 }
 
 .slideContainer {
@@ -48,7 +52,9 @@
 .inputSlider {
     width: 10px;
     margin: 0 auto;
-    height: 250px;
+    height: 270px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .inputField {

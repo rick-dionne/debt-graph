@@ -317,5 +317,9 @@ function drawChart(spendpct, revpct) {
     endChart.draw();
 
     // update text
-    $( '#score' ).html( (100 * seriesData.getValue(9,4)).toFixed() + '%' );
+    var score = (seriesData.getValue(9,4)*100).toFixed();
+    $( '#score' ).html(
+	(score > 0) ?
+	    score + '%' : '0%'
+    );
 }
