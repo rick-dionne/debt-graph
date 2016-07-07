@@ -64,17 +64,20 @@ function chartLoaded() {
     // initialize plan selector
     $('#plan_selector').change(function() {
 	updateBaseSettings($('#plan_selector').val());
-	mainCalculate();
     });
 
     // initialize fixed target checkbox
-    $('input[type=checkbox]').change(function() {
+    $('#target_container input[type=checkbox]').change(function() {
 	if (this.checked) {
 	    g_target_fixed = true;
 	    setTarget();
 	} else {
 	    g_target_fixed = false;
 	}
+    });
+
+    $('.exclude input[type=checkbox]').change(function() {
+	updateBaseSettings($('#plan_selector').val());
     });
 
     // calculate and display chart
@@ -114,8 +117,23 @@ function updateBaseSettings(plan) {
 	my_base_spend = g_base_spend;
 	my_base_debt = g_base_debt;
     }
+
+    // update exclusions
+    var t_base_spend = new Array();
+    for (var i = 0; i < my_base_spend.length; i++) {
+	t_base_spend[i] = my_base_spend[i];
+	if ($('#soc_sec_exclude').prop('checked'))
+	    t_base_spend[i] -= g_soc_sec_cost[i];
+	if ($('#medicare_exclude').prop('checked'))
+	    t_base_spend[i] -= g_medicare_cost[i];
+	if ($('#defense_exclude').prop('checked'))
+	    t_base_spend[i] -= g_defense_cost[i];
+    }
+    my_base_spend = t_base_spend;
+    
     $('#target_fixed').prop('checked',false);
     g_target_fixed = false;
+    mainCalculate();
 }
 
 /* update associated text input, recalculate */

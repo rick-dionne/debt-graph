@@ -1,7 +1,8 @@
 #main_content {
-    width: 770px;
-    height: 700px;
+    width: 750px;
+    height: 680px;
     background-color: lightblue;
+    padding: 10px;
 }
 
 #main_content h1 {
@@ -20,6 +21,10 @@
     padding-top: 10px;
 }
 
+#settings input,select {
+    float: right;
+}
+
 #left_panel p {
     margin: 0px;
     padding: 5px;
@@ -30,7 +35,7 @@
 }
 
 #slider_area {
-    height: 450px;
+    height: 350px;
 }
 
 .slideContainer {
@@ -43,7 +48,7 @@
 .inputSlider {
     width: 10px;
     margin: 0 auto;
-    height: 350px;
+    height: 250px;
 }
 
 .inputField {
@@ -58,12 +63,12 @@
 
 #series_area {
     height: 300px;
-    width: 540px;
+    width: 520px;
     margin: 10px;
 }
 
 #end_area {
     height: 300px;
-    width: 540px;
+    width: 520px;
     margin: 10px;
 }
