@@ -1,6 +1,6 @@
 #main_content {
     width: 720px;
-    height: 680px;
+    height: 700px;
     background-color: lightblue;
     padding: 10px;
 }
@@ -8,6 +8,7 @@
 #main_content h1 {
     margin: 0px;
     padding: 0px;
+    font-style: italic;
 }
 
 #left_panel {
@@ -18,12 +19,17 @@
 #left_panel h3,h4,h5 {
     margin: 0px;
     padding: 0px;
+    font-style: italic;
 }
 
 #left_panel p {
     margin: 0px;
     padding: 0px;
     font-size: 11pt;
+}
+
+#left_panel .topLevel {
+    margin-top: 10px;
 }
 
 #results_area span {
@@ -62,7 +68,7 @@
 .inputSlider {
     width: 10px;
     margin: 0 auto;
-    height: 230px;
+    height: 220px;
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -74,7 +80,6 @@
 }
 
 #reset_area {
-    padding-top: 5px;
     text-align: center;
 }
 
@@ -83,13 +88,13 @@
 }
 
 #series_area {
-    height: 310px;
+    height: 320px;
     width: 480px;
     margin: 10px;
 }
 
 #end_area {
-    height: 310px;
+    height: 320px;
     width: 480px;
     margin: 10px;
 }
