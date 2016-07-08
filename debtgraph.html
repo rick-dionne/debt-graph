@@ -16,37 +16,38 @@
       <div id="left_panel">
 	<div id="results_area">
 	  <h3>Results</h3>
-	  <p>Under your plan, debt held by the public will be
-	    <span id="score">86%</span> of GDP in 2026.</p>
+	  <p>Under your plan, debt held by the public will be <span id="score">86%</span> of GDP in 2026.</p>
+	  <p>You would <span id="spend_dir">cut</span> spending by <span id="spend_score">0%</span></p>
+	  <p>and <span id="rev_dir">increase</span> revenue by <span id="rev_score">0%</span></p>
 	</div>
 	<div id="settings">
 	  <h3>Settings</h3>
 	  <div class="input" id="plan_select_div">
-	      <label for="plan_selector">Base Plan</label>
-	      <select name="plan_selector" id="plan_selector">
-		<option name="plan" id="radio_curr" selected>Current Law</option>
-		<option name="plan" id="radio_clinton">Clinton Plan</option>
-		<option name="plan" id="radio_trump">Trump Plan</option>
-	      </select><br>
-	      <div class="input" id="target_container">
-		<label for="target_fixed">Target Fixed?</label>
-		<input type="checkbox" name="target_fixed" id="target_fixed">
-	      </div>
-	      <h4>Exclusions</h4>
-	      <div class="input exclude" id="soc_sec_container">
-		<label for="soc_sec_exclude">Social Security:</label>
-		<input type="checkbox" name="soc_sec_exlude" id="soc_sec_exclude">
-	      </div>
-	      <div class="input exclude" id="medicare_container">
-		<label for="medicare_exclude">Medicare:</label>
-		<input type="checkbox" name="medicare_exlude" id="medicare_exclude">
-	      </div>
-	      <div class="input exclude" id="defense_container">
-		<label for="defense_exclude">Defense:</label>
-		<input type="checkbox" name="defense_exlude" id="defense_exclude">
-	      </div>
+	    <label for="plan_selector">Base Plan</label>
+	    <select name="plan_selector" id="plan_selector">
+	      <option name="plan" id="radio_curr" selected>Current Law</option>
+	      <option name="plan" id="radio_clinton">Clinton Plan</option>
+	      <option name="plan" id="radio_trump">Trump Plan</option>
+	    </select>
 	  </div>
-	</div>
+	  <div class="input" id="target_container">
+	    <label for="target_fixed">Target Fixed?</label>
+	    <input type="checkbox" name="target_fixed" id="target_fixed">
+	  </div>
+	  <h4>Exclusions</h4>
+	  <div class="input exclude" id="soc_sec_container">
+	    <label for="soc_sec_exclude">Social Security:</label>
+	    <input type="checkbox" name="soc_sec_exlude" id="soc_sec_exclude">
+	  </div>
+	  <div class="input exclude" id="medicare_container">
+	    <label for="medicare_exclude">Medicare:</label>
+	    <input type="checkbox" name="medicare_exlude" id="medicare_exclude">
+	  </div>
+	  <div class="input exclude" id="defense_container">
+	    <label for="defense_exclude">Defense:</label>
+	    <input type="checkbox" name="defense_exlude" id="defense_exclude">
+	  </div>
+	</div> 
 	<div id="slider_area">
 	  <div class="slideContainer">
 	    <h4>Spending Cuts</h4>

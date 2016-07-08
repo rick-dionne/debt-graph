@@ -322,4 +322,14 @@ function drawChart(spendpct, revpct) {
 	(score > 0) ?
 	    score + '%' : '0%'
     );
+    $( '#spend_dir' ).html(
+	(spendpct >= 0) ?
+	    'cut' : 'raise'
+    );
+    $( '#spend_score' ).html( Math.abs(spendpct) + '%' );
+    $( '#rev_dir' ).html(
+	(revpct >= 0) ?
+	    'increase' : 'decrease'
+    );
+    $( '#rev_score' ).html( Math.abs(revpct) + '%' );
 }

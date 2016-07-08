@@ -18,10 +18,6 @@
 #left_panel h3,h4,h5 {
     margin: 0px;
     padding: 0px;
-} 
-
-#settings input,select {
-    float: right;
 }
 
 #left_panel p {
@@ -30,16 +26,30 @@
     font-size: 11pt;
 }
 
-#left_panel #score {
+#results_area span {
     font-weight: bold;
+}
+
+#results_area #score {
     display: inline-block;
     width: 40px;
-    text-align: right;
+    text-align: center;
+}
+
+#results_area #spend_score,#rev_score {
+    float: right;
+}
+
+#settings input,select {
+    float: right;
+}
+
+#settings .input {
+    margin-top: 4px;
 }
 
 #slider_area {
-    margin-top: 10px;
-    height: 400px;
+    height: 340px;
 }
 
 .slideContainer {
@@ -52,7 +62,7 @@
 .inputSlider {
     width: 10px;
     margin: 0 auto;
-    height: 270px;
+    height: 230px;
     margin-top: 10px;
     margin-bottom: 10px;
 }
