@@ -244,17 +244,11 @@ function drawChart(spendpct, revpct) {
 	seriesData.addRow([new Date(year,0,1), curr, clinton, trump, myplan]);
     }
     var seriesOpts = {
-	title: '10 Year Debt Projections',
-	titleTextStyle: {
-	    color: '#1148A5',
-	    fontSize: '20',
-	    italic: true
-	},
 	chartArea: {
 	    left: '10%',
-	    top: '10%',
+	    top: '5%',
 	    width: '85%',
-	    height: '75%'
+	    height: '80%'
 	},
 	vAxis: {
 	    viewWindow: {
@@ -262,20 +256,12 @@ function drawChart(spendpct, revpct) {
 		max: 1.5
 	    },
 	    format: 'percent',
-	    textStyle: {
-		bold: true,
-		fontSize: '15'
-	    },
 	    ticks: [0.25, 0.5, 0.75, 1, 1.25, 1.5]
 	},
 	hAxis: {
 	    viewWindow: {
 		min: new Date(2017,0,1),
 		max: new Date(2026,0,1)
-	    },
-	    textStyle: {
-		bold: true,
-		fontSize: '15'
 	    },
 	    gridlines: {
 		color: 'transparent'
@@ -313,17 +299,11 @@ function drawChart(spendpct, revpct) {
 	['My Plan', seriesData.getValue(9,4), 'green']
     ]);
     var endOpts = {
-	title: 'Debt in 2026',
-	titleTextStyle: {
-	    color: '#1148A5',
-	    fontSize: '20',
-	    italic: true
-	},
 	chartArea: {
 	    left: '10%',
-	    top: '10%',
+	    top: '5%',
 	    width: '85%',
-	    height: '80%'
+	    height: '85%'
 	},
 	vAxis: {
 	    viewWindow: {
@@ -331,10 +311,6 @@ function drawChart(spendpct, revpct) {
 		max: 1.5
 	    },
 	    format: 'percent',
-	        textStyle: {
-		bold: true,
-		fontSize: '15'
-	    },
 	    ticks: [0.25, 0.5, 0.75, 1, 1.25, 1.5]
 	},
 	legend: 'none'

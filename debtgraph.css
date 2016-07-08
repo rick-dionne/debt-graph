@@ -5,7 +5,7 @@
     padding: 10px;
 }
 
-#main_content h1 {
+#main_content h1,h2,h3,h4,h5 {
     margin: 0px;
     padding: 0px;
     font-style: italic;
@@ -14,12 +14,6 @@
 #left_panel {
     float: left;
     width: 220px;
-}
-
-#left_panel h3,h4,h5 {
-    margin: 0px;
-    padding: 0px;
-    font-style: italic;
 }
 
 #left_panel p {
@@ -84,17 +78,21 @@
 }
 
 #chart_area {
+    margin-left: 20px;
     float: left;
+    text-align: right;
+}
+
+#chart_area h3 {
+    margin-top: 10px;
 }
 
 #series_area {
-    height: 320px;
+    height: 300px;
     width: 480px;
-    margin: 10px;
 }
 
 #end_area {
-    height: 320px;
+    height: 300px;
     width: 480px;
-    margin: 10px;
 }
