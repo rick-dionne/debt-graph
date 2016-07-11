@@ -196,7 +196,8 @@ function textUpdateFunc(src) {
 	    val = g_slider_min;
 	else if ($(src).val() > g_slider_max)
 	    val = g_slider_max;
-	$('#'+src+'_slider').slider('value',$('#'+src+'_in').val());
+	$('#'+src+'_in').val(val);
+	$('#'+src+'_slider').slider('value',val);
 	mainCalculate();
     } catch(ex) {
 	console.log(ex);
@@ -228,9 +229,9 @@ function drawChart(spendpct, revpct) {
 	var my_drev = my_base_rev[i] * revpct / 100;
 	var my_dspend = my_base_spend[i] * spendpct / 100;
 	var my_dint = 0;
-	if (i > 0 ) {
-	    my_dint = (seriesData.getValue(i-1, 4)*g_base_gdp[i-1] -
-		       my_base_debt[i-1]) * g_base_intrte[i];
+	for (var j = 0; j < g_int_matrix.length; j++) {
+	    my_dint += ((my_base_spend[j] * spendpct / 100) -
+			(my_base_rev[j] * revpct / 100)) * g_int_matrix[j][i];
 	}
 	var my_deficit = my_drev - my_dspend - my_dint;
 	var myplan;
