@@ -95,15 +95,17 @@ function setTarget(tgtval) {
     var spendpct, taxpts, targetpct = 0;
     switch (tgtval) {
     case 'stabilize':
+	g_target_fixed = true;
 	targetpct = 0.75;
 	break;
     case 'balance':
+	g_target_fixed = true;
 	targetpct = 0.57;
 	break;
     default:
 	g_target_fixed = false;
     }
-    if (targetpct) {
+    if (g_target_fixed) {
 	g_target_value = my_base_debt[9] - (targetpct * g_base_gdp[9]);
 	balanceSliders();
     }
@@ -156,7 +158,8 @@ function updateBaseSettings() {
     g_tax_factor = Math.round(t_tax_factor * 1000) / 1000;
 
     // reset sliders
-    balanceSliders();
+    if (g_target_fixed)
+	balanceSliders();
 }
 
 /* returns the slider val to one decimal place */
