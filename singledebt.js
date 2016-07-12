@@ -15,6 +15,8 @@ var updating = false;
 /* fixed target mode */
 var g_target_fixed = false;
 var g_target_value = 0;
+var g_spend_factor = 0;
+var g_tax_factor   = 0;
 
 /* chart loaded flag */
 var g_chart_loaded = false;
@@ -90,30 +92,30 @@ function reset() {
 }
 
 function setTarget(tgtval) {
-    g_target_fixed = false;
-    var spendpct, taxpts;
+    var spendpct, taxpts, targetpct = 0;
     switch (tgtval) {
     case 'stabilize':
-	spendpct = 27; // placeholder
-	taxpts = g_tax_min / g_scale_factor;
+	targetpct = 0.75;
 	break;
     case 'balance':
-	spendpct = 37; // placeholder 
-	taxpts = g_tax_min / g_scale_factor;
+	targetpct = 0.57;
 	break;
-    case 'custom':
     default:
-	spendpct = g_spending_min / g_scale_factor;
-	taxpts = g_tax_min / g_scale_factor;
+	g_target_fixed = false;
     }
+    if (targetpct) {
+	g_target_value = my_base_debt[9] - (targetpct * g_base_gdp[9]);
+	balanceSliders();
+    }
+}
+
+function balanceSliders() {
+    g_target_fixed = false;
+    var spendpct = (g_target_value / 2) / g_spend_factor;
+    var taxpts = ((g_target_value / 2) / g_tax_factor) + (g_tax_min / g_scale_factor);
     setSliderVal('spending',spendpct);
     setSliderVal('tax',taxpts);
-    if (tgtval != 'custom') {
-	g_target_value = ((g_spend_factor * spendpct)
-			  + (g_tax_factor * (taxpts - (g_tax_min / g_scale_factor))));
-	/* debug console.log('tgt: ' + g_target_value); */
-	g_target_fixed = true;
-    }
+    g_target_fixed = true;
 }
 
 function solveForSpend(taxpts) {
@@ -138,6 +140,23 @@ function updateBaseSettings() {
 	t_base_spend[i] *= -1;
     }
     my_base_spend = t_base_spend;
+
+    //set base factors
+    var t_spend_factor = 0;
+    var t_tax_factor = 0;
+    for (var i = 0; i < g_base_spend.length; i++) {
+	var sum = 0;
+	for (var j = 0; j < 10; j++) {
+	    sum += g_int_matrix[i][j];
+	}
+	t_spend_factor += ((sum+1) * my_base_spend[i] / (-100));
+	t_tax_factor   += ((sum+1) * my_base_tax[i]);
+    }
+    g_spend_factor = Math.round(t_spend_factor * 1000) / 1000;
+    g_tax_factor = Math.round(t_tax_factor * 1000) / 1000;
+
+    // reset sliders
+    balanceSliders();
 }
 
 /* returns the slider val to one decimal place */
@@ -285,7 +304,7 @@ function drawChart(spendpct, taxpts) {
     seriesChart.draw();
 
 // update text
-    var score = (seriesData.getValue(9,1)*100).toFixed();
+    var score = Math.round(seriesData.getValue(9,1)*100);
     $( '#debt_score' ).html(
 	(score > 0) ?
 	    score + '%' : '0%'
