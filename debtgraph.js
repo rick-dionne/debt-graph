@@ -230,8 +230,11 @@ function drawChart(spendpct, revpct) {
 	var my_dspend = my_base_spend[i] * spendpct / 100;
 	var my_dint = 0;
 	for (var j = 0; j < g_int_matrix.length; j++) {
-	    my_dint += ((my_base_spend[j] * spendpct / 100) -
-			(my_base_rev[j] * revpct / 100)) * g_int_matrix[j][i];
+	    var diff = ((my_base_spend[j] * spendpct / 100) -
+			(my_base_rev[j] * revpct / 100));
+	    if (diff < 0) {
+		my_dint += diff * g_int_matrix[j][i];
+	    }
 	}
 	var my_deficit = my_drev - my_dspend - my_dint;
 	var myplan;
@@ -242,6 +245,13 @@ function drawChart(spendpct, revpct) {
 	} else {
 	    myplan = (my_base_debt[0] - my_deficit) / g_base_gdp[0];
 	}
+	/* debug
+	console.log(year
+		    +' drev: ' + my_drev.toFixed(1)
+		    +' dspend: ' + my_dspend.toFixed(1)
+		    +' dint: ' + my_dint.toFixed(1)
+		   );
+	// debug */
 	seriesData.addRow([new Date(year,0,1), curr, clinton, trump, myplan]);
     }
     var seriesOpts = {

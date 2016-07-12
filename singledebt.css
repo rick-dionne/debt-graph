@@ -1,0 +1,89 @@
+#main_content {
+    width: 720px;
+    height: 700px;
+    background-color: lightblue;
+    padding: 10px;
+}
+
+#main_content h1,h2,h3,h4,h5 {
+    margin: 0px;
+    padding: 0px;
+    font-style: italic;
+}
+
+#left_panel {
+    float: left;
+    width: 220px;
+}
+
+#main_content p {
+    margin: 0px;
+    padding: 0px;
+    font-size: 11pt;
+}
+
+#left_panel .topLevel {
+    margin-top: 10px;
+}
+
+#settings input,select {
+    float: right;
+    margin: 0px;
+}
+
+#slider_area {
+    height: 340px;
+}
+
+.slideContainer {
+    position: relative;
+    float: left;
+    text-align: center;
+    width: 110px;
+}
+
+.inputSlider {
+    width: 10px;
+    margin: 0 auto;
+    height: 220px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.inputField {
+    width: 30px;
+    margin: 0 auto;
+    text-align: right;
+}
+
+#reset_area {
+    text-align: center;
+}
+
+#right_panel {
+    margin-left: 20px;
+    float: left;
+    text-align: right;
+}
+
+#right_panel h3 {
+    margin-top: 10px;
+}
+
+#series_area {
+    height: 300px;
+    width: 480px;
+}
+
+#results_area {
+    padding: 50px;
+}
+
+#results_area p {
+    text-align: left;
+}
+
+#results_area .score {
+    font-weight: bold;
+    float: right;
+}

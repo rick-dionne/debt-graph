@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css"/>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+  <link type="text/css" rel="stylesheet" href="singledebt.css">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Trump Debt Control Calculator</title>
+  </head>
+  <body>
+    <div id="main_content">
+      <h1>Trump Debt Control Calculator</h1>
+      <div id="left_panel">
+	<div id="settings" class="topLevel">
+	  <h3>Settings</h3>
+	  <div class="input" id="target_container">
+	    <h4>Target</h4>
+	    <form>
+	      <input type="radio" name="target" value="stabilize"> Stabilize the Debt<br>
+	      <input type="radio" name="target" value="balance"> Balance the Budget<br>
+	      <input type="radio" name="target" value="custom" checked> Custom: -input here-
+	    </form>
+	  </div>
+	  <h4>Exclusions</h4>
+	  <div class="input exclude" id="soc_sec_container" style="background-color:yellow">
+	    <label for="soc_sec_exclude">Social Security:</label>
+	    <input type="checkbox" name="soc_sec_exlude" id="soc_sec_exclude">
+	  </div>
+	  <div class="input exclude" id="medicare_container" style="background-color:yellow">
+	    <label for="medicare_exclude">Medicare:</label>
+	    <input type="checkbox" name="medicare_exlude" id="medicare_exclude">
+	  </div>
+	  <div class="input exclude" id="income_container" style="background-color:red">
+	    <label for="income_exclude">Income tax below $250k:</label>
+	    <input type="checkbox" name="income_exlude" id="income_exclude">
+	  </div>
+	</div> 
+	<div id="slider_area" class="topLevel">
+	  <div class="slideContainer">
+	    <h4>Spending Cuts</h4>
+	    <h5>(% non-excluded)</h5>
+	    <p>100%</p>
+	    <div id="spending_slider" class="inputSlider"> </div>
+	    <p>0%</p>
+	    <div class="inFieldContainer">
+	      <input type="text" id="spending_in" class="inputField" value="0"/><span>%</span>
+	    </div>
+	  </div>
+	  <div class="slideContainer">
+	    <h4>Tax Increases</h4>
+	    <h5>(top marginal rate)</h5>
+	    <p>65%</p>
+	    <div id="tax_slider" class="inputSlider"> </div>
+	    <p>25%</p>
+	    <div class="inFieldContainer">
+	      <input type="text" id="tax_in" class="inputField" value="25"/><span>%</span>
+	    </div>
+	  </div>
+	</div>
+	<div id="reset_area" class="topLevel">
+	  <input type="button" id="reset_button" value="Reset">
+	</div>
+      </div>
+      <div id="right_panel">
+	<div id="chart_area">
+	  <h3>Ten Year Debt Projection</h3>
+	  <div id="series_background">
+	    <div id="series_area"> </div>
+	  </div>
+	</div>
+	<div id="results_area" class="topLevel">
+	  <h3>Results</h3>
+	  <p>Debt held by public in 2026 (% GDP)
+	    <span class="score" id="debt_score">127%</span></p>
+	  <p>Spending cuts (% non-exempt spending)
+	    <span class="score" id="spend_score">0%</span></p>
+	  <p>Top marginal tax rate
+	    <span class="score" id="tax_score">25%</span></p>
+	</div>
+      </div>
+    </div>
+  </body>
+  <!-- local scripts -->
+  <script type="text/javascript" src="trumpdata.js"> </script>
+  <script type="text/javascript" src="singledebt.js"> </script>
+</html>
