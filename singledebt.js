@@ -1,13 +1,17 @@
 /* crfb debt graph interactive tool
- * js to link inputs to chart display
- * see chartdata.js for undelying numbers
+ *
+ * displays an interactive single plan debt calculator
+ * relies on datafile - trumpdata.js or clintondata.js
+ * one of those scripts MUST be included before this one
+ * to set global variables and load underlying datasets
+ *
  * Rick Dionne, July 2016
  */
 
 /* copy global vars */
-my_base_spend = g_base_spend;
-my_base_tax   =   g_base_tax;
-my_base_debt  =  g_base_debt;
+my_base_spend  =    g_base_spend;
+my_base_tax    =  g_base_taxfull;
+my_base_debt   =     g_base_debt;
 
 /* prevent recursive loop */
 var updating = false;
@@ -97,6 +101,7 @@ function reset() {
     $('input[type=radio][name=target]').filter('[value=stabilize]').prop('checked',true);
     setTarget('stabilize');
     $('.exclude input[type=checkbox]').prop('checked', false);
+    $('#custom_target').val((g_custom_default*100).toFixed());
     updateBaseSettings();
     mainCalculate();
 }
@@ -127,22 +132,20 @@ function setTarget(tgtval) {
 }
 
 function balanceSliders() {
-    g_target_fixed = false;
-    var spendpct = (g_target_value / 2) / g_spend_factor;
-    var taxpts = ((g_target_value / 2) / g_tax_factor) + (g_tax_min / g_scale_factor);
-    setSliderVal('spending',spendpct);
+    var taxpts = roundUp(((g_target_value/2) / g_tax_factor) + (g_tax_min / g_scale_factor));
     setSliderVal('tax',taxpts);
-    g_target_fixed = true;
 }
 
 function solveForSpend(taxpts) {
-    return ((g_target_value - (g_tax_factor * (taxpts - (g_tax_min / g_scale_factor))))
-	    / g_spend_factor);
+    return roundUp((g_target_value - (g_tax_factor * (taxpts - (g_tax_min / g_scale_factor))))/ g_spend_factor);
 }
 
 function solveForTax(spendpct) {
-    return (((g_target_value - (g_spend_factor * spendpct)) / g_tax_factor)
-	    + (g_tax_min / g_scale_factor));
+    return roundUp(((g_target_value - (g_spend_factor * spendpct)) / g_tax_factor) + (g_tax_min / g_scale_factor));
+}
+
+function roundUp(num) {
+    return Math.ceil(num * g_scale_factor) / g_scale_factor;
 }
 
 function customHandler() {
@@ -183,7 +186,11 @@ function updateBaseSettings() {
 	t_base_spend[i] *= -1;
     }
     my_base_spend = t_base_spend;
-
+    if ($('#income_exclude').prop('checked'))
+	my_base_tax = g_base_taxrich;
+    else
+	my_base_tax = g_base_taxfull;
+    
     //set base factors
     var t_spend_factor = 0;
     var t_tax_factor = 0;
@@ -220,7 +227,7 @@ function slideUpdateFunc(src, tgt, func, otherfunc) {
 	if (g_target_fixed && !updating) {
 	    updating = true;
 	    var otherval = func(val);
-	    /* debug console.log('val: ' + val + ' otherval: ' + otherval); */
+	    /* debug console.log('val: ' + val + ' otherval: ' + otherval);// */
 	    if (otherval > $('#'+tgt+'_slider').slider('option','max')/g_scale_factor) {
 		otherval = $('#'+tgt+'_slider').slider('option','max')/g_scale_factor;
 		val = Math.round(otherfunc(otherval)*g_scale_factor)/g_scale_factor;
@@ -274,7 +281,7 @@ function mainCalculate() {
 function drawChart(spendpct, taxpts) {
     var seriesData = new google.visualization.DataTable();
     seriesData.addColumn('date', 'Year');
-    seriesData.addColumn('number', 'My Plan');
+    seriesData.addColumn('number', 'Debt');
     for (var i = 0; i < g_base_gdp.length; i++) {
 	var year = 2017 + i;
 	var my_drev = my_base_tax[i] * (taxpts - (g_tax_min/g_scale_factor));
@@ -299,12 +306,17 @@ function drawChart(spendpct, taxpts) {
 		    +' drev: ' + my_drev.toFixed(1)
 		    +' dspend: ' + my_dspend.toFixed(1)
 		    +' dint: ' + my_dint.toFixed(1)
-		   ); */
+		   );// */
 	seriesData.addRow([new Date(year,0,1), myplan]);
     }
+    // format data for display
+    var dateFormatter = new google.visualization.DateFormat({ pattern: 'yyyy'  });
+    dateFormatter.format(seriesData, 0);
+    var debtFormatter = new google.visualization.NumberFormat({ pattern: '###%' });
+    debtFormatter.format(seriesData, 1);
     /* debug  var thisval = ((my_base_spend[9] * spendpct)
-			       - (my_base_tax[9] * taxpts)); */
-    /* debug  console.log('actual: ' + thisval); */
+			       - (my_base_tax[9] * taxpts));// */
+    /* debug  console.log('actual: ' + thisval);// */
     var seriesOpts = {
 	chartArea: {
 	    left: '10%',

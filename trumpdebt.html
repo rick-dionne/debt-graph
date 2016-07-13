@@ -7,6 +7,8 @@
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
   <link type="text/css" rel="stylesheet" href="singledebt.css">
+  <script type="text/javascript" src="trumpdata.js"> </script>
+  <script type="text/javascript" src="singledebt.js"> </script>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Trump Debt Control Calculator</title>
@@ -39,7 +41,7 @@
 	    <label for="medicare_exclude">Medicare:</label>
 	    <input type="checkbox" name="medicare_exlude" id="medicare_exclude">
 	  </div>
-	  <div class="input exclude" id="income_container" style="background-color:red">
+	  <div class="input exclude" id="income_container">
 	    <label for="income_exclude">Income tax below $250k:</label>
 	    <input type="checkbox" name="income_exlude" id="income_exclude">
 	  </div>
@@ -76,20 +78,19 @@
 	  <div id="series_background">
 	    <div id="series_area"> </div>
 	  </div>
+	  <p id="chart_caption">Note: Due to rounding, results will not always match targets</p>
 	</div>
 	<div id="results_area" class="topLevel">
 	  <h3>Results</h3>
-	  <p>Debt held by public in 2026 (% GDP)
-	    <span class="score" id="debt_score">127%</span></p>
 	  <p>Spending cuts (% non-exempt spending)
 	    <span class="score" id="spend_score">0%</span></p>
 	  <p>Top marginal tax rate
-	    <span class="score" id="tax_score">25%</span></p>
+	    <span class="score" id="tax_score">25%</span></p><br>
+	  <p>Debt held by public in 2026 (% GDP)
+	    <span class="score" id="debt_score">127%</span></p>
+	  <br>
 	</div>
       </div>
     </div>
   </body>
-  <!-- local scripts -->
-  <script type="text/javascript" src="trumpdata.js"> </script>
-  <script type="text/javascript" src="singledebt.js"> </script>
 </html>

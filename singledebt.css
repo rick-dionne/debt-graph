@@ -1,6 +1,6 @@
 #main_content {
     width: 720px;
-    height: 700px;
+    height: 640px;
     background-color: lightblue;
     padding: 10px;
 }
@@ -19,7 +19,6 @@
 #main_content p {
     margin: 0px;
     padding: 0px;
-    font-size: 11pt;
 }
 
 #left_panel .topLevel {
@@ -34,7 +33,6 @@
 #settings #custom_target {
     float: none;
     width: 25px;
-    font-size: 11px;
     text-align: right;
 }
 
@@ -82,8 +80,15 @@
     width: 480px;
 }
 
+#chart_caption {
+    font-style: italic;
+    text-align: left;
+}
+
 #results_area {
-    padding: 50px;
+    padding: 25px;
+    background-color: white;
+    margin: 40px;
 }
 
 #results_area p {
