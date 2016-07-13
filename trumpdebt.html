@@ -19,10 +19,15 @@
 	  <h3>Settings</h3>
 	  <div class="input" id="target_container">
 	    <h4>Target</h4>
-	    <form>
-	      <input type="radio" name="target" value="stabilize"> Stabilize the Debt<br>
-	      <input type="radio" name="target" value="balance"> Balance the Budget<br>
-	      <input type="radio" name="target" value="custom" checked> Custom: -input here-
+	    <form id="target_select" action="javascript:void(0);">
+	      Stabilize the Debt
+	      <input type="radio" name="target" value="stabilize" checked><br>
+	      Balance the Budget
+	      <input type="radio" name="target" value="balance"><br>
+	      Choose My Own <input type="text" id="custom_target" value="67"/>%
+	      <input type="radio" name="target" value="custom"><br>
+	      Not Fixed
+	      <input type="radio" name="target" value="free">
 	    </form>
 	  </div>
 	  <h4>Exclusions</h4>

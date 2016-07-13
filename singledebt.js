@@ -13,10 +13,14 @@ my_base_debt  =  g_base_debt;
 var updating = false;
 
 /* fixed target mode */
-var g_target_fixed = false;
+var g_target_fixed = true;
 var g_target_value = 0;
 var g_spend_factor = 0;
 var g_tax_factor   = 0;
+var g_stable_target = 0.75;
+var g_custom_target = g_custom_default;
+var g_balance_target = 0.58;
+
 
 /* chart loaded flag */
 var g_chart_loaded = false;
@@ -66,6 +70,11 @@ function chartLoaded() {
 	setTarget(this.value);
     });
 
+    // initialize custom target input
+    $('#custom_target').change(function() {
+	customHandler();
+    });
+
     // initialize exclusion checkboxes
     $('.exclude input[type=checkbox]').change(function() {
 	updateBaseSettings();
@@ -79,13 +88,14 @@ function chartLoaded() {
 
     // calculate and display charts
     g_chart_loaded = true;
+    setTarget('stabilize');
     updateBaseSettings();
     mainCalculate();
 }
 
 function reset() {
-    $('#tax_slider').slider('value', g_tax_default);
-    $('#spending_slider').slider('value', g_spending_default);
+    $('input[type=radio][name=target]').filter('[value=stabilize]').prop('checked',true);
+    setTarget('stabilize');
     $('.exclude input[type=checkbox]').prop('checked', false);
     updateBaseSettings();
     mainCalculate();
@@ -96,12 +106,17 @@ function setTarget(tgtval) {
     switch (tgtval) {
     case 'stabilize':
 	g_target_fixed = true;
-	targetpct = 0.75;
+	targetpct = g_stable_target;
 	break;
     case 'balance':
 	g_target_fixed = true;
-	targetpct = 0.57;
+	targetpct = g_balance_target;
 	break;
+    case 'custom':
+	g_target_fixed = true;
+	targetpct = g_custom_target;
+	break;
+    case 'free':
     default:
 	g_target_fixed = false;
     }
@@ -128,6 +143,32 @@ function solveForSpend(taxpts) {
 function solveForTax(spendpct) {
     return (((g_target_value - (g_spend_factor * spendpct)) / g_tax_factor)
 	    + (g_tax_min / g_scale_factor));
+}
+
+function customHandler() {
+    try {
+	var val = $('#custom_target').val();
+	val = val.replace(/^\d.-/g,'');
+	val = Math.round(val*1)/100;
+	if (isNaN(val))
+	    val = g_custom_default;
+	else if (val < g_custom_min) {
+	    alert('target must be between '+(g_custom_min*100).toFixed()
+		   +'% and '+(g_custom_max*100).toFixed()+'%');
+	    val = g_custom_min;
+	}
+	else if (val > g_custom_max) {
+	    alert('target must be between '+(g_custom_min*100).toFixed()
+		  +'% and '+(g_custom_max*100).toFixed()+'%');
+	    val = g_custom_max;
+	}
+	    $('#custom_target').val((val*100).toFixed());
+	g_custom_target = val;
+	if ($('input[name=target]:checked').val() == 'custom')
+	    setTarget('custom');
+    } catch(ex) {
+	console.log(ex);
+    }
 }
 
 function updateBaseSettings() {

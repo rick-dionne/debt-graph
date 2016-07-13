@@ -31,6 +31,13 @@
     margin: 0px;
 }
 
+#settings #custom_target {
+    float: none;
+    width: 25px;
+    font-size: 11px;
+    text-align: right;
+}
+
 #slider_area {
     height: 340px;
 }
