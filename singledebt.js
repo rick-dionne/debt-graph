@@ -38,6 +38,7 @@ function chartLoaded() {
     // initialize sliders
     $('#spending_slider').slider({
 	orientation: 'vertical',
+	range: 'min',
 	min: g_spending_min,
 	max: g_spending_max,
 	value: g_spending_default,
@@ -50,6 +51,7 @@ function chartLoaded() {
     });
     $('#tax_slider').slider({
 	orientation: 'vertical',
+	range: 'min',
 	min: g_tax_min,
 	max: g_tax_max,
 	value: g_tax_default,
