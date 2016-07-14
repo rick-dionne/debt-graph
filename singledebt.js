@@ -206,7 +206,7 @@ function updateBaseSettings() {
     }
     g_spend_factor = Math.round(t_spend_factor * 1000) / 1000;
     g_tax_factor = Math.round(t_tax_factor * 1000) / 1000;
-
+    
     // reset sliders
     if (g_target_fixed)
 	balanceSliders();
@@ -229,7 +229,6 @@ function slideUpdateFunc(src, tgt, func, otherfunc) {
 	if (g_target_fixed && !updating) {
 	    updating = true;
 	    var otherval = func(val);
-	    /* debug console.log('val: ' + val + ' otherval: ' + otherval);// */
 	    if (otherval > $('#'+tgt+'_slider').slider('option','max')/g_scale_factor) {
 		otherval = $('#'+tgt+'_slider').slider('option','max')/g_scale_factor;
 		val = Math.round(otherfunc(otherval)*g_scale_factor)/g_scale_factor;
@@ -273,7 +272,6 @@ function textUpdateFunc(src, min, max) {
 function mainCalculate() {
     var spendpct = getSliderVal('spending');
     var taxpts   = getSliderVal('tax');
-    /*debug console.log('spend: ' + spendpct + ' tax: ' +taxpts); */
     if (g_chart_loaded) {
 	drawChart(spendpct, taxpts);
     }
@@ -303,12 +301,6 @@ function drawChart(spendpct, taxpts) {
 	} else {
 	    myplan = (my_base_debt[0] +  my_deficit) / g_base_gdp[0];
 	}
-	/* debug 
-	console.log(year
-		    +' drev: ' + my_drev.toFixed(1)
-		    +' dspend: ' + my_dspend.toFixed(1)
-		    +' dint: ' + my_dint.toFixed(1)
-		   );// */
 	seriesData.addRow([new Date(year,0,1), myplan]);
     }
     // format data for display
@@ -316,9 +308,6 @@ function drawChart(spendpct, taxpts) {
     dateFormatter.format(seriesData, 0);
     var debtFormatter = new google.visualization.NumberFormat({ pattern: '###%' });
     debtFormatter.format(seriesData, 1);
-    /* debug  var thisval = ((my_base_spend[9] * spendpct)
-			       - (my_base_tax[9] * taxpts));// */
-    /* debug  console.log('actual: ' + thisval);// */
     var seriesOpts = {
 	chartArea: {
 	    left: '10%',
@@ -361,7 +350,7 @@ function drawChart(spendpct, taxpts) {
     // draw to screen
     seriesChart.draw();
 
-// update text
+    // update text
     var score = Math.round(seriesData.getValue(9,1)*100);
     $( '#debt_score' ).html(
 	(score > 0) ?
