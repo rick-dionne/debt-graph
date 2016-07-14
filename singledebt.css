@@ -18,6 +18,10 @@
     text-align: center;
 }
 
+#main_content h3 {
+    text-align: center;
+}
+
 #left_panel {
     float: left;
     width: 220px;
@@ -106,16 +110,9 @@
 }
 
 #results_area {
-    padding: 25px;
-    padding-top: 10px;
-    margin: 40px;
-    margin-top: 55px;
+    padding: 10px 25px;
+    margin: 55px 40px;
     background-color: white;
-}
-
-#results_area h3 {
-    text-align: center;
-    padding: 5px 0px;
 }
 
 #results_area p {
