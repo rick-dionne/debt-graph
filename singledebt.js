@@ -155,8 +155,11 @@ function customHandler() {
 	var val = $('#custom_target').val();
 	val = val.replace(/^\d.-/g,'');
 	val = Math.round(val*1)/100;
-	if (isNaN(val))
+	if (isNaN(val)) {
+	    alert('target must be between '+(g_custom_min*100).toFixed()
+		  +'% and '+(g_custom_max*100).toFixed()+'%');
 	    val = g_custom_default;
+	}
 	else if (val < g_custom_min) {
 	    alert('target must be between '+(g_custom_min*100).toFixed()
 		   +'% and '+(g_custom_max*100).toFixed()+'%');
