@@ -1,4 +1,4 @@
-# debt calculator dev build makefile
+# debt calculator development makefile
 # Rick Dionne, July 2016
 
 MAKE = make

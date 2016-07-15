@@ -19,28 +19,30 @@ var g_int_matrix = [
 ];
 
 /* Spending Cut Exclusions (src: CBO March 2016) */
-var g_soc_sec_cost = [1162.279,1218.448,1282.413,1350.530,1422.064,1497.133,1575.695,1657.652,1744.613,1835.455];
-var g_medicare_cost = [396.133,447.473,450.405,449.783,516.318,564.965,615.471,709.318,733.480,750.377];
+var g_soc_sec_cost = [946.669,1002.838,1066.803,1134.920,1206.454,1281.523,1360.085,1442.042,1529.003,1619.845];
+//var g_medicare_cost = [539.873,591.213,594.145,593.523,660.058,708.705,759.211,853.058,877.220,894.117,997.412,1074.581];
+var g_medicare_cost = [701.835,768.577,772.389,771.58,858.075,921.317,986.974,1108.975,1140.386,1162.352];
 
-/* Trump Plan */
+/* Clinton Plan */
 var g_base_taxfull = [48.721,67.041,72.159,76.201,79.856,82.936,87.236,91.537,95.837,100.134];
-var g_base_taxrich = [11.626,15.058,16.276,17.512,17.765,19.039,20.333,20.641,21.590,22.580];
-var g_base_spend = [3727.664,3750.113,3987.603,4175.577,4350.066,4602.884,4755.035,4901.224,5185.039,5480.874];
-var g_base_debt = [15140.464,16593.902,18304.645,20178.356,22215.212,24492.051,26895.069,29415.980,32174.036,35192.415];
+var g_base_taxrich = [13.277,13.531,14.7998,16.086,16.349,17.675,19.022,19.343,20.331,21.362];
+//var g_base_spend = [3832.137,3948.203,4183.969,4371.387,4563.402,4831.007,4985.575,5140.118,5430.707,5705.846];
+var g_base_spend = [3755.494,3869.239,4100.29,4283.959,4472.134,4734.387,4885.864,5037.316,5322.093,5591.729];
+var g_base_debt = [14612.990,15265.744,16057.968,16921.152,17870.603,18967.800,20097.029,21245.033,22530.538,23928.643];
 
 /* slider ranges */
 var g_scale_factor     =    2;
 var g_spending_min     =    0 * g_scale_factor;
 var g_spending_max     =  100 * g_scale_factor;
 var g_spending_default =    0 * g_scale_factor;
-var g_tax_min          =   25 * g_scale_factor;
+var g_tax_min          =   44 * g_scale_factor;
 var g_tax_max          =   65 * g_scale_factor;
-var g_tax_default      =   25 * g_scale_factor;
+var g_tax_default      =   44 * g_scale_factor;
 
 /* fixed target bounds */
 var g_custom_min     = 0.25;
-var g_custom_max     = 1.27;
+var g_custom_max     = 0.87;
 var g_custom_default = 0.67;
 
 /* chart styling */
-var g_line_color = 'red';
+var g_line_color = 'blue';

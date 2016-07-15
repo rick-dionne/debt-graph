@@ -7,15 +7,15 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css" />
-    <link type="text/css" rel="stylesheet" href="singledebt.css" />
-    <script type="text/javascript" src="trumpdata.js"> </script>
-    <script type="text/javascript" src="singledebt.js"> </script>
+    <link type="text/css" rel="stylesheet" href="debtcalc.css" />
+    <script type="text/javascript" src="clintondata.js"> </script>
+    <script type="text/javascript" src="debtcalc.js"> </script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Trump Debt Control Calculator</title>
+    <title>Clinton Debt Control Calculator</title>
   </head>
   <body>
     <div id="main_content">
-      <h1>Trump Debt Control Calculator</h1>
+      <h1>Clinton Debt Control Calculator</h1>
       <div id="left_panel">
 	<div id="settings" class="topLevel">
 	  <h3>Settings</h3>
@@ -62,7 +62,7 @@
 	    <h5>(top marginal rate)</h5>
 	    <p>65%</p>
 	    <div id="tax_slider" class="inputSlider"> </div>
-	    <p>25%</p>
+	    <p>44%</p>
 	    <div class="inFieldContainer">
 	      <input type="text" id="tax_in" class="inputField" value="25"/><span>%</span>
 	    </div>
@@ -75,7 +75,7 @@
       <div id="right_panel">
 	<div id="chart_area">
 	  <h2>Ten Year Debt Projection</h2>
-	  <div id="series_background">
+	  <div id="clinton_background">
 	    <div id="series_area"> </div>
 	  </div>
 	  <p id="chart_caption">Note: Due to rounding, results may not match targets exactly.</p>
@@ -84,7 +84,7 @@
 	  <h3>Results</h3>
 	  <p>Spending cuts (% non-exempt spending)
 	    <span class="score" id="spend_score">0%</span></p>
-	  <p>Top marginal tax rate
+	  <p>Top marginal tax rate (+<span id="tax_up">0.0</span> points)
 	    <span class="score" id="tax_score">25%</span></p><br/>
 	  <p>Debt held by public in 2026 (% GDP)
 	    <span class="score" id="debt_score">127%</span></p>

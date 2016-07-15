@@ -98,6 +98,18 @@
     background-color: white;
 }
 
+#trump_background {
+    background: url('t-chart-image.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+#clinton_background {
+    background: url('c-chart-image.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
 #series_area {
     height: 300px;
     width: 480px;
@@ -122,4 +134,10 @@
 #results_area .score {
     font-weight: bold;
     float: right;
+}
+
+#results_area #tax_up {
+    display: inline-block;
+    width: 28px;
+    text-align: right;
 }

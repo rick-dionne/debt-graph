@@ -315,7 +315,7 @@ function drawChart(spendpct, taxpts) {
 	chartArea: {
 	    left: '10%',
 	    top: '5%',
-	    width: '85%',
+	    width: '80%',
 	    height: '85%'
 	},
 	vAxis: {
@@ -338,7 +338,10 @@ function drawChart(spendpct, taxpts) {
 		    new Date(2024,0,1), new Date(2026,0,1)]
 	},
 	legend: 'none',
-	lineWidth: 3,
+	lineWidth: 2,
+	backgroundColor: {
+	    fill: 'transparent'
+	},
 	series: {
 	    0:	{ color: g_line_color }
 	}
@@ -361,4 +364,5 @@ function drawChart(spendpct, taxpts) {
     );
     $( '#spend_score' ).html( Math.abs(spendpct).toFixed(1) + '%' );
     $( '#tax_score' ).html( Math.abs(taxpts).toFixed(1) + '%' );
+    $( '#tax_up' ).html( Math.abs(taxpts - (g_tax_min / g_scale_factor)).toFixed(1));
 }
