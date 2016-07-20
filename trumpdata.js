@@ -44,3 +44,4 @@ var g_custom_default = 0.67;
 
 /* chart styling */
 var g_line_color = 'red';
+var g_cand_name = 'Trump';

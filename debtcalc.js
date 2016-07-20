@@ -284,7 +284,8 @@ function mainCalculate() {
 function drawChart(spendpct, taxpts) {
     var seriesData = new google.visualization.DataTable();
     seriesData.addColumn('date', 'Year');
-    seriesData.addColumn('number', 'Debt');
+    seriesData.addColumn('number', 'My Plan');
+    seriesData.addColumn('number', g_cand_name + ' Baseline');
     for (var i = 0; i < g_base_gdp.length; i++) {
 	var year = 2017 + i;
 	var my_drev = my_base_tax[i] * (taxpts - (g_tax_min/g_scale_factor));
@@ -304,13 +305,15 @@ function drawChart(spendpct, taxpts) {
 	} else {
 	    myplan = (my_base_debt[0] +  my_deficit) / g_base_gdp[0];
 	}
-	seriesData.addRow([new Date(year,0,1), myplan]);
+	var baseline = my_base_debt[i] / g_base_gdp[i];
+	seriesData.addRow([new Date(year,0,1), myplan, baseline]);
     }
     // format data for display
     var dateFormatter = new google.visualization.DateFormat({ pattern: 'yyyy'  });
     dateFormatter.format(seriesData, 0);
     var debtFormatter = new google.visualization.NumberFormat({ pattern: '###%' });
     debtFormatter.format(seriesData, 1);
+    debtFormatter.format(seriesData, 2);
     var seriesOpts = {
 	chartArea: {
 	    left: '10%',
@@ -343,7 +346,13 @@ function drawChart(spendpct, taxpts) {
 	    fill: 'transparent'
 	},
 	series: {
-	    0:	{ color: g_line_color }
+	    0: {
+		color: g_line_color
+	    },
+	    1: {
+		color: g_line_color,
+		lineDashStyle: [5,5]
+	    }
 	}
     };
     var seriesChart = new google.visualization.ChartWrapper({
