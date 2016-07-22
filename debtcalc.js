@@ -10,7 +10,6 @@
 
 /* copy global vars */
 my_base_spend  =    g_base_spend;
-my_base_tax    =  g_base_taxfull;
 my_base_debt   =     g_base_debt;
 
 /* prevent recursive loop */
@@ -20,7 +19,8 @@ var updating = false;
 var g_target_fixed = true;
 var g_target_value = 0;
 var g_spend_factor = 0;
-var g_tax_factor   = 0;
+var g_tax_quadfact = 0;
+var g_tax_linfact  = 0;
 var g_stable_target = 0.75;
 var g_custom_target = g_custom_default;
 var g_balance_target = 0.58;
@@ -129,21 +129,43 @@ function setTarget(tgtval) {
     }
     if (g_target_fixed) {
 	g_target_value = my_base_debt[9] - (targetpct * g_base_gdp[9]);
+	/* debug console.log('setTarget(): g_target_val = '+g_target_value.toFixed(3));//*/
 	balanceSliders();
     }
 }
 
 function balanceSliders() {
-    var taxpts = roundUp(((g_target_value/2) / g_tax_factor) + (g_tax_min / g_scale_factor));
+    var taxpts;
+    if (g_tax_quadfact != 0) {
+	var radical = Math.pow(g_tax_linfact,2)+(4*g_tax_quadfact*(g_target_value/2));
+	taxpts = roundUp((((-1)*g_tax_linfact) + Math.sqrt(radical))/(2*g_tax_quadfact) + (g_tax_min / g_scale_factor));
+    } else {
+	taxpts = roundUp(((g_target_value/2) / g_tax_linfact) + (g_tax_min / g_scale_factor));
+    }
+    /* debug console.log('balanceSliders(): taxpts = '+taxpts); //*/
     setSliderVal('tax',taxpts);
 }
 
 function solveForSpend(taxpts) {
-    return roundUp((g_target_value - (g_tax_factor * (taxpts - (g_tax_min / g_scale_factor))))/ g_spend_factor);
+    var spendpct = roundUp((g_target_value - (g_tax_linfact * (taxpts - (g_tax_min / g_scale_factor))) - (g_tax_quadfact * Math.pow(taxpts - (g_tax_min / g_scale_factor),2)))/ g_spend_factor);
+    /* debug console.log('solveForSpend('+taxpts+'): spendpct = '+spendpct); //*/
+    return spendpct;
 }
 
 function solveForTax(spendpct) {
-    return roundUp(((g_target_value - (g_spend_factor * spendpct)) / g_tax_factor) + (g_tax_min / g_scale_factor));
+    var taxpts;
+    if (g_tax_quadfact != 0) {
+	var radical =  Math.pow(g_tax_linfact,2) - (4*g_tax_quadfact*(spendpct*g_spend_factor - g_target_value));
+	if (radical > 0) {
+	    taxpts = roundUp((((-1)*g_tax_linfact) + Math.sqrt(radical)) / (2*g_tax_quadfact) + (g_tax_min / g_scale_factor));
+	} else {
+	    taxpts = -1;
+	}
+    } else {
+	taxpts = roundUp(((g_target_value - (g_spend_factor * spendpct)) / g_tax_linfact) + (g_tax_min / g_scale_factor));
+    }
+    /* debug console.log('solveForTax('+spendpct+'): taxpts = '+taxpts); //*/
+    return taxpts;
 }
 
 function roundUp(num) {
@@ -191,24 +213,45 @@ function updateBaseSettings() {
 	t_base_spend[i] *= -1;
     }
     my_base_spend = t_base_spend;
-    if ($('#income_exclude').prop('checked'))
-	my_base_tax = g_base_taxrich;
-    else
-	my_base_tax = g_base_taxfull;
-    
+
     //set base factors
     var t_spend_factor = 0;
-    var t_tax_factor = 0;
+    var t_tax_linfact = 0;
+    var t_tax_quadfact = 0;
     for (var i = 0; i < g_base_spend.length; i++) {
 	var sum = 0;
 	for (var j = 0; j < 10; j++) {
 	    sum += g_int_matrix[i][j];
 	}
 	t_spend_factor += ((sum+1) * my_base_spend[i] / (-100));
-	t_tax_factor   += ((sum+1) * my_base_tax[i]);
+	if ($('#income_exclude').prop('checked')) {
+	    var i_tax_linfact = g_base_tax[i];
+	    var i_tax_quadfact = 0;
+	    for (var j = 0; j < g_tax_fixers.length; j++) {
+		i_tax_linfact += g_tax_fixers[j][i]*g_tax_scalars[j];
+		i_tax_quadfact += g_tax_fixers[j][i];
+	    }
+	    t_tax_linfact += (1 + sum) * i_tax_linfact;
+	    t_tax_quadfact += (1 + sum) * i_tax_quadfact;
+	    /* debug
+	    console.log('sum['+i+']: '+sum);
+	    console.log('linfact['+i+']: '+(i_tax_linfact*(sum+1)));
+	    console.log('quadfact['+i+']: '+(i_tax_quadfact*(sum+1)));
+	    //*/
+	} else {
+	    t_tax_linfact  += ((sum+1) * g_base_taxfull[i]);
+	}	
     }
     g_spend_factor = Math.round(t_spend_factor * 1000) / 1000;
-    g_tax_factor = Math.round(t_tax_factor * 1000) / 1000;
+    g_tax_quadfact = Math.round(t_tax_quadfact * 1000) / 1000;
+    g_tax_linfact = Math.round(t_tax_linfact * 1000) / 1000;
+
+    /* debug
+    console.log('updateBaseSettings():');
+    console.log('  g_spend_factor = ' + g_spend_factor);
+    console.log('  g_tax_quadfact = ' + g_tax_quadfact);
+    console.log('  g_tax_linfact = ' + g_tax_linfact);
+    //*/
     
     // reset sliders
     if (g_target_fixed)
@@ -274,26 +317,42 @@ function textUpdateFunc(src, min, max) {
 /* feed inputs into chart creation */
 function mainCalculate() {
     var spendpct = getSliderVal('spending');
-    var taxpts   = getSliderVal('tax');
+    var taxup   = getSliderVal('tax') - (g_tax_min / g_scale_factor);
     if (g_chart_loaded) {
-	drawChart(spendpct, taxpts);
+	drawChart(spendpct, taxup);
+    }
+}
+
+function calcSpend(spendpct, year) {
+    return my_base_spend[year] * spendpct / 100;
+}
+
+function calcRev(taxup, year) {
+    if ($('#income_exclude').prop('checked')) {
+	var a1 = g_base_tax[year], a2 = 0;
+	for (var j = 0; j < g_tax_fixers.length; j++) {
+	    a1 += g_tax_fixers[j][year] * g_tax_scalars[j];
+	    a2 += g_tax_fixers[j][year];
+	}
+	return (a1 * taxup) + (a2 * Math.pow(taxup,2));
+    } else {
+	return g_base_taxfull[year] * taxup;
     }
 }
 
 /* prepare and draw charts */
-function drawChart(spendpct, taxpts) {
+function drawChart(spendpct, taxup) {
     var seriesData = new google.visualization.DataTable();
     seriesData.addColumn('date', 'Year');
     seriesData.addColumn('number', 'My Plan');
     seriesData.addColumn('number', g_cand_name + ' Baseline');
     for (var i = 0; i < g_base_gdp.length; i++) {
 	var year = 2017 + i;
-	var my_drev = my_base_tax[i] * (taxpts - (g_tax_min/g_scale_factor));
-	var my_dspend = my_base_spend[i] * spendpct / 100;
+	var my_drev = calcRev(taxup, i);
+	var my_dspend = calcSpend(spendpct, i);
 	var my_dint = 0;
 	for (var j = 0; j <= i; j++) {
-	    var diff = ((my_base_spend[j] * spendpct / 100) -
-			(my_base_tax[j] * (taxpts - (g_tax_min/g_scale_factor))));
+	    var diff = calcSpend(spendpct, j) - calcRev(taxup, j);
 	    my_dint += diff * g_int_matrix[j][i];
 	}
 	var my_deficit = my_dspend + my_dint - my_drev;
@@ -309,7 +368,7 @@ function drawChart(spendpct, taxpts) {
 	seriesData.addRow([new Date(year,0,1), myplan, baseline]);
     }
     // format data for display
-    var dateFormatter = new google.visualization.DateFormat({ pattern: 'yyyy'  });
+    var dateFormatter = new google.visualization.DateFormat({ pattern: 'yyyy' });
     dateFormatter.format(seriesData, 0);
     var debtFormatter = new google.visualization.NumberFormat({ pattern: '###%' });
     debtFormatter.format(seriesData, 1);
@@ -372,6 +431,6 @@ function drawChart(spendpct, taxpts) {
 	    score + '%' : '0%'
     );
     $( '#spend_score' ).html( Math.abs(spendpct).toFixed(1) + '%' );
-    $( '#tax_score' ).html( Math.abs(taxpts).toFixed(1) + '%' );
-    $( '#tax_up' ).html( Math.abs(taxpts - (g_tax_min / g_scale_factor)).toFixed(1));
+    $( '#tax_score' ).html( Math.abs(taxup + (g_tax_min / g_scale_factor)).toFixed(1) + '%' );
+    $( '#tax_up' ).html( Math.abs(taxup).toFixed(1));
 }
