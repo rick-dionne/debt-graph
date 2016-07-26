@@ -39,9 +39,9 @@ var g_scale_factor     =    2;
 var g_spending_min     =    0 * g_scale_factor;
 var g_spending_max     =  100 * g_scale_factor;
 var g_spending_default =    0 * g_scale_factor;
-var g_tax_min          =   44 * g_scale_factor;
-var g_tax_max          =   65 * g_scale_factor;
-var g_tax_default      =   44 * g_scale_factor;
+var g_tax_min          =    0 * g_scale_factor;
+var g_tax_max          =   21 * g_scale_factor;
+var g_tax_default      =    0 * g_scale_factor;
 
 /* fixed target bounds */
 var g_custom_min     = 0.25;
@@ -51,3 +51,4 @@ var g_custom_default = 0.67;
 /* chart styling */
 var g_line_color = 'blue';
 var g_cand_name = 'Clinton';
+var g_base_toptax = 44;

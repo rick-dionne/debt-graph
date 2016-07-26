@@ -36,15 +36,16 @@ var g_scale_factor     =    2;
 var g_spending_min     =    0 * g_scale_factor;
 var g_spending_max     =  100 * g_scale_factor;
 var g_spending_default =    0 * g_scale_factor;
-var g_tax_min          =   25 * g_scale_factor;
-var g_tax_max          =   65 * g_scale_factor;
-var g_tax_default      =   25 * g_scale_factor;
+var g_tax_min          =    0 * g_scale_factor;
+var g_tax_max          =   45 * g_scale_factor;
+var g_tax_default      =    0 * g_scale_factor;
 
 /* fixed target bounds */
 var g_custom_min     = 0.25;
 var g_custom_max     = 1.27;
 var g_custom_default = 0.67;
 
-/* chart styling */
+/* for results display */
 var g_line_color = 'red';
 var g_cand_name = 'Trump';
+var g_base_toptax = 25;

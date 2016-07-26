@@ -87,6 +87,11 @@ function chartLoaded() {
 	mainCalculate();
     });
 
+    $('input[type=radio][name=tax_type]').change(function() {
+	updateBaseSettings();
+	mainCalculate();
+    });
+
     // initialize reset button
     $('#reset_area input[type=button]').click(function() {
 	reset();
@@ -103,6 +108,7 @@ function reset() {
     $('input[type=radio][name=target]').filter('[value=stabilize]').prop('checked',true);
     setTarget('stabilize');
     $('.exclude input[type=checkbox]').prop('checked', false);
+    $('input[type=radio][name=tax_type]').filter('[value=all]').prop('checked',true);
     $('#custom_target').val((g_custom_default*100).toFixed());
     updateBaseSettings();
     mainCalculate();
@@ -138,16 +144,16 @@ function balanceSliders() {
     var taxpts;
     if (g_tax_quadfact != 0) {
 	var radical = Math.pow(g_tax_linfact,2)+(4*g_tax_quadfact*(g_target_value/2));
-	taxpts = roundUp((((-1)*g_tax_linfact) + Math.sqrt(radical))/(2*g_tax_quadfact) + (g_tax_min / g_scale_factor));
+	taxpts = roundUp((((-1)*g_tax_linfact) + Math.sqrt(radical))/(2*g_tax_quadfact));
     } else {
-	taxpts = roundUp(((g_target_value/2) / g_tax_linfact) + (g_tax_min / g_scale_factor));
+	taxpts = roundUp(((g_target_value/2) / g_tax_linfact));
     }
     /* debug console.log('balanceSliders(): taxpts = '+taxpts); //*/
     setSliderVal('tax',taxpts);
 }
 
 function solveForSpend(taxpts) {
-    var spendpct = roundUp((g_target_value - (g_tax_linfact * (taxpts - (g_tax_min / g_scale_factor))) - (g_tax_quadfact * Math.pow(taxpts - (g_tax_min / g_scale_factor),2)))/ g_spend_factor);
+    var spendpct = roundUp((g_target_value - (g_tax_linfact * taxpts) - (g_tax_quadfact * Math.pow(taxpts,2)))/ g_spend_factor);
     /* debug console.log('solveForSpend('+taxpts+'): spendpct = '+spendpct); //*/
     return spendpct;
 }
@@ -157,12 +163,12 @@ function solveForTax(spendpct) {
     if (g_tax_quadfact != 0) {
 	var radical =  Math.pow(g_tax_linfact,2) - (4*g_tax_quadfact*(spendpct*g_spend_factor - g_target_value));
 	if (radical > 0) {
-	    taxpts = roundUp((((-1)*g_tax_linfact) + Math.sqrt(radical)) / (2*g_tax_quadfact) + (g_tax_min / g_scale_factor));
+	    taxpts = roundUp((((-1)*g_tax_linfact) + Math.sqrt(radical)) / (2*g_tax_quadfact));
 	} else {
 	    taxpts = -1;
 	}
     } else {
-	taxpts = roundUp(((g_target_value - (g_spend_factor * spendpct)) / g_tax_linfact) + (g_tax_min / g_scale_factor));
+	taxpts = roundUp(((g_target_value - (g_spend_factor * spendpct)) / g_tax_linfact));
     }
     /* debug console.log('solveForTax('+spendpct+'): taxpts = '+taxpts); //*/
     return taxpts;
@@ -224,7 +230,7 @@ function updateBaseSettings() {
 	    sum += g_int_matrix[i][j];
 	}
 	t_spend_factor += ((sum+1) * my_base_spend[i] / (-100));
-	if ($('#income_exclude').prop('checked')) {
+	if ($('input[name=tax_type]:checked').val() == 'high') {
 	    var i_tax_linfact = g_base_tax[i];
 	    var i_tax_quadfact = 0;
 	    for (var j = 0; j < g_tax_fixers.length; j++) {
@@ -317,7 +323,7 @@ function textUpdateFunc(src, min, max) {
 /* feed inputs into chart creation */
 function mainCalculate() {
     var spendpct = getSliderVal('spending');
-    var taxup   = getSliderVal('tax') - (g_tax_min / g_scale_factor);
+    var taxup   = getSliderVal('tax');
     if (g_chart_loaded) {
 	drawChart(spendpct, taxup);
     }
@@ -328,7 +334,7 @@ function calcSpend(spendpct, year) {
 }
 
 function calcRev(taxup, year) {
-    if ($('#income_exclude').prop('checked')) {
+    if ($('input[name=tax_type]:checked').val() == 'high') {
 	var a1 = g_base_tax[year], a2 = 0;
 	for (var j = 0; j < g_tax_fixers.length; j++) {
 	    a1 += g_tax_fixers[j][year] * g_tax_scalars[j];
@@ -431,6 +437,6 @@ function drawChart(spendpct, taxup) {
 	    score + '%' : '0%'
     );
     $( '#spend_score' ).html( Math.abs(spendpct).toFixed(1) + '%' );
-    $( '#tax_score' ).html( Math.abs(taxup + (g_tax_min / g_scale_factor)).toFixed(1) + '%' );
+    $( '#tax_score' ).html( Math.abs(taxup + g_base_toptax).toFixed(1) + '%' );
     $( '#tax_up' ).html( Math.abs(taxup).toFixed(1));
 }

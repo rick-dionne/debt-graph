@@ -18,54 +18,62 @@
       <h1>Trump Debt Control Calculator</h1>
       <div id="left_panel">
 	<div id="settings" class="topLevel">
-	  <h3>Settings</h3>
-	  <div class="input" id="target_container">
-	    <h4>Debt Target</h4>
-	    <form id="target_select" action="javascript:void(0);">
-	      Stabilize the Debt
-	      <input type="radio" name="target" value="stabilize" checked="checked"/><br/>
-	      Balance the Budget
-	      <input type="radio" name="target" value="balance"/><br/>
-	      Choose My Own: <input type="text" id="custom_target" value="67"/>%
-	      <input type="radio" name="target" value="custom"/><br/>
-	      Not Fixed
-	      <input type="radio" name="target" value="free"/>
-	    </form>
-	  </div>
-	  <h4>Exclusions</h4>
-	  <div class="input exclude" id="soc_sec_container">
-	    <label for="soc_sec_exclude">Social Security:</label>
-	    <input type="checkbox" name="soc_sec_exlude" id="soc_sec_exclude"/>
-	  </div>
-	  <div class="input exclude" id="medicare_container">
-	    <label for="medicare_exclude">Medicare:</label>
-	    <input type="checkbox" name="medicare_exlude" id="medicare_exclude"/>
-	  </div>
-	  <div class="input exclude" id="income_container">
-	    <label for="income_exclude">Income tax below $250k:</label>
-	    <input type="checkbox" name="income_exlude" id="income_exclude"/>
-	  </div>
-	</div> 
+	  <h2>Debt Target</h2>
+	  <h4>(% GDP in 2026)</h4>
+	  <form id="target_select" action="javascript:void(0);">
+	    <label><input type="radio" name="target" value="stabilize" checked="checked"/>
+	      Stabilize the Debt - 75%</label><br/>
+	    <label><input type="radio" name="target" value="balance"/>
+	      Balance the Budget - 58%</label><br/>
+	    <label><input type="radio" name="target" value="custom"/>
+	      Choose My Own - <input type="text" class="inputField" id="custom_target" value="67"/>%</label><br/>
+	    <label><input type="radio" name="target" value="free"/>
+	      No Target</label>
+	  </form>
+	</div>
 	<div id="slider_area" class="topLevel">
 	  <div class="slideContainer">
-	    <h4>Spending Cuts</h4>
-	    <h5>(% non-excluded)</h5>
+	    <h4>Cut Spending</h4>
+	    <h5>Excluding...</h5>
+	    <div class="selector">
+	      <div class="input exclude" id="soc_sec_container">
+		<input type="checkbox" name="soc_sec_exlude" id="soc_sec_exclude"/>
+		<label for="soc_sec_exclude">Social Security</label>
+	      </div>
+	      <div class="input exclude" id="medicare_container">
+		<input type="checkbox" name="medicare_exlude" id="medicare_exclude"/>
+		<label for="medicare_exclude">Medicare</label>
+	      </div>
+	      <div class="inFieldContainer">
+		<span>by <input type="text" id="spending_in" class="inputField" value="0"/>%</span>
+	      </div>
+	    </div>
 	    <p>100%</p>
 	    <div id="spending_slider" class="inputSlider"> </div>
 	    <p>0%</p>
-	    <div class="inFieldContainer">
-	      <input type="text" id="spending_in" class="inputField" value="0"/><span>%</span>
-	    </div>
+	    <h5>(% non-excluded)</h5>
 	  </div>
 	  <div class="slideContainer">
-	    <h4>Tax Increases</h4>
-	    <h5>(top marginal rate)</h5>
+	    <h4>Increase Taxes</h4>
+	    <h5>For...</h5>
+	    <div class="selector">
+	      <form id="tax_select" action="javascripts:void(0);">
+		<label>
+		  <input type="radio" name="tax_type" value="all" checked="checked"/>
+		  All</label><br/>
+		<label>
+		  <input type="radio" name="tax_type" value="high"/>
+		  High Earners
+		</label>
+	      </form>
+	      <div class="inFieldContainer">
+		<span>by <input type="text" id="tax_in" class="inputField" value="0"/> points</span>
+	      </div>
+	    </div>
 	    <p>65%</p>
 	    <div id="tax_slider" class="inputSlider"> </div>
 	    <p>25%</p>
-	    <div class="inFieldContainer">
-	      <input type="text" id="tax_in" class="inputField" value="25"/><span>%</span>
-	    </div>
+	    <h5>(top marginal rate)</h5>
 	  </div>
 	</div>
 	<div id="reset_area" class="topLevel">
@@ -81,11 +89,11 @@
 	  <p id="chart_caption">Note: Due to rounding, results may not match targets exactly.</p>
 	</div>
 	<div id="results_area" class="topLevel">
-	  <h3>Results</h3>
+	  <h2>Results</h2>
 	  <p>Spending cuts (% non-exempt spending)
 	    <span class="score" id="spend_score">0%</span></p>
 	  <p>Top marginal tax rate (+<span id="tax_up">0.0</span> points)
-	    <span class="score" id="tax_score">25%</span></p><br/>
+	    <span class="score" id="tax_score">44%</span></p><br/>
 	  <p>Debt held by public in 2026 (% GDP)
 	    <span class="score" id="debt_score">127%</span></p>
 	</div>
