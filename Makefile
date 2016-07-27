@@ -5,10 +5,13 @@ MAKE = make
 
 all: build
 
-.phony: build clean
+.phony: build clean deploy
 
 build:
 	@cd ..; $(MAKE) $@
 
 clean:
 	@cd ..; $(MAKE) $@
+
+deploy:
+	@./deploy.sh

@@ -8,7 +8,7 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css" />
     <link type="text/css" rel="stylesheet" href="debtcalc.css" />
-    <script type="text/javascript" src="trumpdata.js"> </script>
+    <script type="text/javascript" src="Trumpdata.js"> </script>
     <script type="text/javascript" src="debtcalc.js"> </script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Trump Debt Control Calculator</title>
@@ -45,7 +45,7 @@
 		<label for="medicare_exclude">Medicare</label>
 	      </div>
 	      <div class="inFieldContainer">
-		<span>by <input type="text" id="spending_in" class="inputField" value="0"/>%</span>
+		<span>by <input type="text" id="spending_in" class="inputField" value="0"/> percent</span>
 	      </div>
 	    </div>
 	    <p>100%</p>
@@ -72,7 +72,7 @@
 	    </div>
 	    <p>65%</p>
 	    <div id="tax_slider" class="inputSlider"> </div>
-	    <p>25%</p>
+	    <p>44%</p>
 	    <h5>(top marginal rate)</h5>
 	  </div>
 	</div>
@@ -83,7 +83,7 @@
       <div id="right_panel">
 	<div id="chart_area">
 	  <h2>Ten Year Debt Projection</h2>
-	  <div id="trump_background">
+	  <div id="Trump_background">
 	    <div id="series_area"> </div>
 	  </div>
 	  <p id="chart_caption">Note: Due to rounding, results may not match targets exactly.</p>
@@ -91,11 +91,11 @@
 	<div id="results_area" class="topLevel">
 	  <h2>Results</h2>
 	  <p>Spending cuts (% non-exempt spending)
-	    <span class="score" id="spend_score">0%</span></p>
-	  <p>Top marginal tax rate (+<span id="tax_up">0.0</span> points)
-	    <span class="score" id="tax_score">44%</span></p><br/>
+	    <span class="score" id="spend_score"></span></p>
+	  <p>Top marginal tax rate (+<span id="tax_up"></span> points)
+	    <span class="score" id="tax_score"></span></p><br/>
 	  <p>Debt held by public in 2026 (% GDP)
-	    <span class="score" id="debt_score">127%</span></p>
+	    <span class="score" id="debt_score"></span></p>
 	</div>
       </div>
     </div>
