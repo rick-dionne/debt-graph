@@ -72,7 +72,7 @@
 	    </div>
 	    <p>65%</p>
 	    <div id="tax_slider" class="inputSlider"> </div>
-	    <p>44%</p>
+	    <p>#TMIN#%</p>
 	    <h5>(top marginal rate)</h5>
 	  </div>
 	</div>
