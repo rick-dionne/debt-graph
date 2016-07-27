@@ -6,8 +6,8 @@
 # overwrites existing files
 
 echo "deploying..."
-sed 's/#CAND#/Clinton/g' calc.template > clintoncalc.html
+sed -e 's/#CANDT#/Clinton/g' -e 's/#CANDF#/clinton/g' calc.template > clintoncalc.html
 echo "  built clintoncalc"
-sed 's/#CAND#/Trump/g'   calc.template > trumpcalc.html
+sed -e 's/#CANDT#/Trump/g' -e 's/#CANDF#/trump/g' calc.template > trumpcalc.html
 echo "  built trumpcalc"
 echo "  ...done"

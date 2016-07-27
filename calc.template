@@ -8,14 +8,14 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css" />
     <link type="text/css" rel="stylesheet" href="debtcalc.css" />
-    <script type="text/javascript" src="#CAND#data.js"> </script>
+    <script type="text/javascript" src="#CANDF#data.js"> </script>
     <script type="text/javascript" src="debtcalc.js"> </script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>#CAND# Debt Control Calculator</title>
+    <title>#CANDT# Debt Control Calculator</title>
   </head>
   <body>
     <div id="main_content">
-      <h1>#CAND# Debt Control Calculator</h1>
+      <h1>#CANDT# Debt Control Calculator</h1>
       <div id="left_panel">
 	<div id="settings" class="topLevel">
 	  <h2>Debt Target</h2>
@@ -83,7 +83,7 @@
       <div id="right_panel">
 	<div id="chart_area">
 	  <h2>Ten Year Debt Projection</h2>
-	  <div id="#CAND#_background">
+	  <div id="#CANDF#_background">
 	    <div id="series_area"> </div>
 	  </div>
 	  <p id="chart_caption">Note: Due to rounding, results may not match targets exactly.</p>
