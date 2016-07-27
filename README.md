@@ -22,5 +22,6 @@ Uses `JQuery` and the Google Visualization API, along with basic `HTML` and `CSS
 ## Modeling Information
 
 Dynamic projection model developed from debt projections by the Committee for a Responsible Federal Budget. Economic feedback and other dynamic effects of debt are not incorporated. Projections for Social Security and Medicare spending are from the Congressional Budget Office's March 2016 baseline.
+
 ---
 Rick Dionne, July 2016
