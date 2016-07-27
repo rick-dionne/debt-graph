@@ -388,11 +388,11 @@ function drawChart(spendpct, taxup) {
 	},
 	vAxis: {
 	    viewWindow: {
-		min: 0.25,
-		max: 1.5
+		min: 0.5,
+		max: 1.3
 	    },
 	    format: 'percent',
-	    ticks: [0.25, 0.5, 0.75, 1, 1.25, 1.5]
+	    ticks: [0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3]
 	},
 	hAxis: {
 	    viewWindow: {

@@ -41,7 +41,7 @@ var g_tax_max          =   45 * g_scale_factor;
 var g_tax_default      =    0 * g_scale_factor;
 
 /* fixed target bounds */
-var g_custom_min     = 0.25;
+var g_custom_min     = 0.50;
 var g_custom_max     = 1.27;
 var g_custom_default = 0.67;
 
