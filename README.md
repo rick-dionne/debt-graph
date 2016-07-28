@@ -6,7 +6,7 @@ v2: Projections for the two candidates are now done separately, in parallel docu
 
 ## Build Instructions
 
-`make deploy` to produce html documents `clintoncalc.html` and `trumpcalc.html`. Documents reference the files:
+`make deploy` to produce html documents `clinton.html` and `trump.html`. Documents reference the files:
 
 * `debtcalc.js`            - Javascript powering the calculator
 * `debtcalc.css`           - Stylesheet for the page
