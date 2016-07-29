@@ -175,7 +175,7 @@ function solveForTax(spendpct) {
 }
 
 function roundUp(num) {
-    return Math.ceil(num * g_scale_factor) / g_scale_factor;
+    return Math.round(num * g_scale_factor) / g_scale_factor;
 }
 
 function customHandler() {
