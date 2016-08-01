@@ -8,6 +8,7 @@ all: build
 build:
 	@mkdir -p $(TARGET)
 	@deploy.sh
+	@echo 'target:' $(TARGET)
 	cp -f dev/*.html $(TARGET)
 	cp -f dev/*.css  $(TARGET)
 	cp -f dev/*.js   $(TARGET)
