@@ -1,9 +1,12 @@
 #!/bin/bash
 
 # script for deploying Trump/Clinton debt calculators
-# from generic template 'candidatecalc.html'
-# produces 'trumpcalc.html' and 'clintoncalc.html'
+# from generic template 'dev/calc.template'
+# produces 'dev/trump.html' and 'dev/clinton.html'
 # overwrites existing files
+#
+# Rick Dionne, July 2016
+# Updated August 2016
 
 echo "deploying..."
 sed -e 's/#CANDT#/Clinton/g' \
@@ -14,4 +17,4 @@ sed -e 's/#CANDT#/Trump/g' \
     -e 's/#CANDF#/trump/g' \
     -e 's/#TMIN#/25/g' dev/calc.template > dev/trump.html
 echo "  built trump"
-echo "  ...done"
+echo "...done"

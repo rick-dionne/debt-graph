@@ -18,4 +18,4 @@ Uses `JQuery` and the Google Visualization API, along with basic `HTML/CSS`. Sty
 Based on debt projections made by the Committee for a Responsible Federal Budget in June 2016, using data from the Congressional Budget Office and the Tax Policy Center. All results are heavily rounded and may not exactly match prior analyses.
 
 ---
-Rick Dionne, July 2016
+Rick Dionne, August 2016
