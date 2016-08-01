@@ -1,27 +1,21 @@
 # Debt Graph Project
 
-This is an interactive tool for visualizing debt projections under various plans for revenue and spending. Intended for embedding in blogs or other informational pages, the tool allows the user to set their own levels of spending and revenue, starting from the plans of Presidential Candidates Trump and Clinton, as well as current law.
-
-v2: Projections for the two candidates are now done separately, in parallel documents that load different datasets into the same underlying projection engine.
+Tool for visualizing the debt implications of various modifications to the policy proposals of the 2016 presidential candidates. Calculates the debt reduction effect of various combinations of tax increases and spending cuts, using the plans of Trump and Clinton as baselines. Provides instant feedback to the user, allowing them to create their own plan for adapting the candidates' plans to better manage the debt.
 
 ## Build Instructions
 
-`make deploy` to produce html documents `clinton.html` and `trump.html`. Documents reference the files:
-
-* `debtcalc.js`            - Javascript powering the calculator
-* `debtcalc.css`           - Stylesheet for the page
-* `[trump|clinton]data.js` - Candidate data
-* `[t|c]-chart-image.png`  - image with candidate targets
-
-These files are expected to be in local directory.
+* `make deploy` to build the calculators at `./dev/[clinton|trump].html`
+* `make build` to transfer the calculators to the specified target directory (default: `./static/`)
+    * edit the target by changing the `TARGET` variable in the top-level Makefile
+* `make clean` to clean the repository of derived files
 
 ## Implementation Details
 
-Uses `JQuery` and the Google Visualization API, along with basic `HTML` and `CSS`. Styled statically. Designed for iframe embedding in a CRFB blog along with supplementary description, disclaimers, and analysis.
+Uses `JQuery` and the Google Visualization API, along with basic `HTML/CSS`. Styled statically. Designed for iframe embedding in a CRFB blog along with supplementary description, disclaimers, and analysis.
 
 ## Modeling Information
 
-Dynamic projection model developed from debt projections by the Committee for a Responsible Federal Budget. Economic feedback and other dynamic effects of debt are not incorporated. Projections for Social Security and Medicare spending are from the Congressional Budget Office's March 2016 baseline.
+Based on debt projections made by the Committee for a Responsible Federal Budget in June 2016, using data from the Congressional Budget Office and the Tax Policy Center. All results are heavily rounded and may not exactly match prior analyses.
 
 ---
 Rick Dionne, July 2016

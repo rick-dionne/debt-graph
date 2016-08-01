@@ -8,10 +8,10 @@
 echo "deploying..."
 sed -e 's/#CANDT#/Clinton/g' \
     -e 's/#CANDF#/clinton/g' \
-    -e 's/#TMIN#/44/g' calc.template > clinton.html
+    -e 's/#TMIN#/44/g' dev/calc.template > dev/clinton.html
 echo "  built clinton"
 sed -e 's/#CANDT#/Trump/g' \
     -e 's/#CANDF#/trump/g' \
-    -e 's/#TMIN#/25/g' calc.template > trump.html
+    -e 's/#TMIN#/25/g' dev/calc.template > dev/trump.html
 echo "  built trump"
 echo "  ...done"

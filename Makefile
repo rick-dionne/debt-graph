@@ -1,17 +1,23 @@
-# debt calculator development makefile
+# Makefile for maintaining the debt-graph project
 # Rick Dionne, July 2016
 
-MAKE = make
+TARGET=./static
 
 all: build
 
-.phony: build clean deploy
-
 build:
-	@cd ..; $(MAKE) $@
+	@mkdir -p $(TARGET)
+	@deploy.sh
+	cp -f dev/*.html $(TARGET)
+	cp -f dev/*.css  $(TARGET)
+	cp -f dev/*.js   $(TARGET)
+	cp -f dev/*.png  $(TARGET)
 
 clean:
-	@cd ..; $(MAKE) $@
+	rm -f *~
+	rm -f dev/*~
 
 deploy:
 	@./deploy.sh
+
+.phony: build clean deploy
