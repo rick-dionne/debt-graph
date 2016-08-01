@@ -439,9 +439,9 @@ function drawChart(spendpct, taxup) {
     var rev_inc = 100*(((g_cand_totrev + tot_drev)/g_curr_totrev)-1);
     $('#spend_cut').html( spend_cut.toFixed() + '%' );
     $('#rev_inc').html( rev_inc.toFixed() + '%' );
-    var spend_raw = g_cand_totspend - tot_dspend - g_curr_totspend;
+    var spend_raw = g_curr_totspend - (g_cand_totspend + tot_dspend);
     spend_raw = spend_raw > 0 ? spend_raw : 0;
-    var rev_raw = g_cand_totrev + tot_drev - g_curr_totrev;
+    var rev_raw = (g_cand_totrev + tot_drev) - g_curr_totrev;
     rev_raw = rev_raw > 0 ? rev_raw : 0;
     tot_reduc = spend_raw + rev_raw;
     tot_reduc = tot_reduc > 0 ? tot_reduc : 1;
