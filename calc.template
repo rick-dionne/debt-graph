@@ -19,7 +19,7 @@
       <div id="left_panel">
 	<div id="settings" class="topLevel">
 	  <h2>Debt Target</h2>
-	  <h4>(% GDP in 2026)</h4>
+	  <h4>(Percent GDP in 2026)</h4>
 	  <form id="target_select" action="javascript:void(0);">
 	    <label><input type="radio" name="target" value="stabilize" checked="checked"/>
 	      Stabilize the Debt - 75%</label><br/>
@@ -51,7 +51,7 @@
 	    <p>100%</p>
 	    <div id="spending_slider" class="inputSlider"> </div>
 	    <p>0%</p>
-	    <h5>(% non-excluded)</h5>
+	    <h5>Percent non-excluded</h5>
 	  </div>
 	  <div class="slideContainer">
 	    <h4>Increase Taxes</h4>
@@ -73,7 +73,7 @@
 	    <p>65%</p>
 	    <div id="tax_slider" class="inputSlider"> </div>
 	    <p>#TMIN#%</p>
-	    <h5>(top marginal rate)</h5>
+	    <h5>top marginal rate</h5>
 	  </div>
 	</div>
 	<div id="reset_area" class="topLevel">
@@ -90,12 +90,16 @@
 	</div>
 	<div id="results_area" class="topLevel">
 	  <h2>Results</h2>
-	  <p>Spending cuts (% non-exempt spending)
-	    <span class="score" id="spend_score"></span></p>
-	  <p>Top marginal tax rate (+<span id="tax_up"></span> points)
-	    <span class="score" id="tax_score"></span></p><br/>
-	  <p>Debt held by public in 2026 (% GDP)
-	    <span class="score" id="debt_score"></span></p>
+	  <h3>Percent change from current law</h3>
+	  <p>Spending cuts:
+	    <span class="score" id="spend_cut"></span></p>
+	  <p>Revenue increases:
+	    <span class="score" id="rev_inc"></span></p>
+	  <h3>Debt Reduction Breakdown</h3>
+	  <p>From spending cuts:
+	    <span class="score" id="spend_part"></span></p>
+	  <p>From revenue increases:
+	    <span class="score" id="rev_part"></span></p>
 	</div>
       </div>
     </div>

@@ -17,6 +17,8 @@ var g_int_matrix = [
     [0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0176,0.0367],
     [0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0176]
 ];
+var g_curr_totrev   = 42089.371;
+var g_curr_totspend = 45571.247;
 
 /* Spending Cut Exclusions (src: CBO March 2016) */
 var g_soc_sec_cost = [946.669,1002.838,1066.803,1134.920,1206.454,1281.523,1360.085,1442.042,1529.003,1619.845];
@@ -30,6 +32,9 @@ var g_base_debt = [15140.464,16593.902,18304.645,20178.356,22215.212,24492.051,2
 /* intentioanlly empty - Trump tax is fully linear */
 var g_tax_fixers = [];
 var g_tax_scalars = [];
+/* for results */
+var g_cand_totrev   = 31598.095;
+var g_cand_totspend = 44915.862;
 
 /* slider ranges */
 var g_scale_factor     =    2;

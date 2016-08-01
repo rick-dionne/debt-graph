@@ -348,6 +348,8 @@ function calcRev(taxup, year) {
 
 /* prepare and draw charts */
 function drawChart(spendpct, taxup) {
+    var tot_dspend = 0;
+    var tot_drev   = 0;
     var seriesData = new google.visualization.DataTable();
     seriesData.addColumn('date', 'Year');
     seriesData.addColumn('number', 'My Plan');
@@ -372,6 +374,8 @@ function drawChart(spendpct, taxup) {
 	}
 	var baseline = my_base_debt[i] / g_base_gdp[i];
 	seriesData.addRow([new Date(year,0,1), myplan, baseline]);
+	tot_dspend += my_dspend;
+	tot_drev   += my_drev;
     }
     // format data for display
     var dateFormatter = new google.visualization.DateFormat({ pattern: 'yyyy' });
@@ -431,12 +435,16 @@ function drawChart(spendpct, taxup) {
     seriesChart.draw();
 
     // update text
-    var score = Math.round(seriesData.getValue(9,1)*100);
-    $( '#debt_score' ).html(
-	(score > 0) ?
-	    score + '%' : '0%'
-    );
-    $( '#spend_score' ).html( Math.abs(spendpct).toFixed(1) + '%' );
-    $( '#tax_score' ).html( Math.abs(taxup + g_base_toptax).toFixed(1) + '%' );
-    $( '#tax_up' ).html( Math.abs(taxup).toFixed(1));
+    var spend_cut  = 100*(1-((g_cand_totspend + tot_dspend)/g_curr_totspend));
+    var rev_inc = 100*(((g_cand_totrev + tot_drev)/g_curr_totrev)-1);
+    $('#spend_cut').html( spend_cut.toFixed() + '%' );
+    $('#rev_inc').html( rev_inc.toFixed() + '%' );
+    var spend_raw = g_cand_totspend - tot_dspend - g_curr_totspend;
+    spend_raw = spend_raw > 0 ? spend_raw : 0;
+    var rev_raw = g_cand_totrev + tot_drev - g_curr_totrev;
+    rev_raw = rev_raw > 0 ? rev_raw : 0;
+    tot_reduc = spend_raw + rev_raw;
+    tot_reduc = tot_reduc > 0 ? tot_reduc : 1;
+    $('#spend_part').html( (100*(spend_raw/tot_reduc)).toFixed() + '%' );
+    $('#rev_part').html( (100*(rev_raw/tot_reduc)).toFixed() + '%' );
 }
