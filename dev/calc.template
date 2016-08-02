@@ -26,7 +26,7 @@
 	    <label><input type="radio" name="target" value="balance"/>
 	      Balance the Budget: <span class="rightJustified">57%</span></label><br/>
 	    <label><input type="radio" name="target" value="custom"/>
-	      Choose My Own: <span class="rightJustified"><input type="text" class="inputField" id="custom_target" value="67"/>%</span></label><br/>
+	      Choose My Own: <span class="rightJustified"><input type="text" class="inputField" id="custom_target" value="66"/>%</span></label><br/>
 	    
 	    <label><input type="radio" name="target" value="free"/>
 	      No Target</label>
