@@ -6,8 +6,8 @@ body {
     margin: auto;
     width: 760px;
     height: 630px;
-    background-color: #00548A;
     padding: 10px;
+    background-color: #00548A;
 }
 
 #main_content h1,h2,h3,h4,h5 {
@@ -41,6 +41,10 @@ body {
 
 #settings {
     padding: 5px 30px;
+}
+
+label .rightJustified {
+    float: right;
 }
 
 #custom_target {

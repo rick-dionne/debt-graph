@@ -23,7 +23,7 @@ var g_tax_quadfact = 0;
 var g_tax_linfact  = 0;
 var g_stable_target = 0.75;
 var g_custom_target = g_custom_default;
-var g_balance_target = 0.58;
+var g_balance_target = 0.57;
 
 
 /* chart loaded flag */
@@ -175,7 +175,7 @@ function solveForTax(spendpct) {
 }
 
 function roundUp(num) {
-    return Math.round(num * g_scale_factor) / g_scale_factor;
+    return Math.ceil(num * g_scale_factor) / g_scale_factor;
 }
 
 function customHandler() {
@@ -293,7 +293,7 @@ function slideUpdateFunc(src, tgt, func, otherfunc) {
 	    setSliderVal(tgt,otherval);
 	    updating = false;
 	}
-	$('#'+src+'_in').val(val.toFixed(1));
+	$('#'+src+'_in').val(val.toFixed(2));
 	mainCalculate();
     } catch(ex) {
 	console.log(ex);
@@ -312,7 +312,7 @@ function textUpdateFunc(src, min, max) {
 	    val = min;
 	else if ($(src).val() > max)
 	    val = max;
-	$('#'+src+'_in').val(val.toFixed(1));
+	$('#'+src+'_in').val(val.toFixed(2));
 	setSliderVal(src,val);
 	mainCalculate();
     } catch(ex) {
@@ -391,6 +391,9 @@ function drawChart(spendpct, taxup) {
 	    height: '85%'
 	},
 	vAxis: {
+	    textStyle: {
+		bold: true
+	    },
 	    viewWindow: {
 		min: 0.5,
 		max: 1.3
@@ -399,6 +402,9 @@ function drawChart(spendpct, taxup) {
 	    ticks: [0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3]
 	},
 	hAxis: {
+	    textStyle: {
+		bold: true
+	    },
 	    viewWindow: {
 		min: new Date(2017,0,1),
 		max: new Date(2026,0,1)
@@ -406,8 +412,10 @@ function drawChart(spendpct, taxup) {
 	    gridlines: {
 		color: 'transparent'
 	    },
-	    ticks: [new Date(2018,0,1), new Date(2020,0,1), new Date(2022,0,1),
-		    new Date(2024,0,1), new Date(2026,0,1)]
+	    ticks: [new Date(2017,0,1), new Date(2018,0,1), new Date(2019,0,1),
+		    new Date(2020,0,1), new Date(2021,0,1), new Date(2022,0,1),
+		    new Date(2023,0,1), new Date(2024,0,1), new Date(2025,0,1),
+		    new Date(2026,0,1)]
 	},
 	legend: 'none',
 	lineWidth: 2,

@@ -19,14 +19,15 @@
       <div id="left_panel">
 	<div id="settings" class="topLevel">
 	  <h2>Debt Target</h2>
-	  <h4>(Percent GDP in 2026)</h4>
+	  <h4>(Percent of GDP in 2026)</h4>
 	  <form id="target_select" action="javascript:void(0);">
 	    <label><input type="radio" name="target" value="stabilize" checked="checked"/>
-	      Stabilize the Debt - 75%</label><br/>
+	      Stabilize the Debt: <span class="rightJustified">75%</span></label><br/>
 	    <label><input type="radio" name="target" value="balance"/>
-	      Balance the Budget - 58%</label><br/>
+	      Balance the Budget: <span class="rightJustified">57%</span></label><br/>
 	    <label><input type="radio" name="target" value="custom"/>
-	      Choose My Own - <input type="text" class="inputField" id="custom_target" value="67"/>%</label><br/>
+	      Choose My Own: <span class="rightJustified"><input type="text" class="inputField" id="custom_target" value="67"/>%</span></label><br/>
+	    
 	    <label><input type="radio" name="target" value="free"/>
 	      No Target</label>
 	  </form>
@@ -51,7 +52,7 @@
 	    <p>100%</p>
 	    <div id="spending_slider" class="inputSlider"> </div>
 	    <p>0%</p>
-	    <h5>Percent non-excluded</h5>
+	    <h5>percent non-excluded</h5>
 	  </div>
 	  <div class="slideContainer">
 	    <h4>Increase Taxes</h4>
@@ -86,12 +87,11 @@
 	  <div id="#CANDF#_background">
 	    <div id="series_area"> </div>
 	  </div>
-	  <p id="chart_caption">Note: Due to rounding, results may not match targets exactly.</p>
 	</div>
 	<div id="results_area" class="topLevel">
 	  <h2>Results</h2>
 	  <h3>Percent change from current law</h3>
-	  <p>Spending cuts:
+	  <p>Spending cuts (non-interest):
 	    <span class="score" id="spend_cut"></span></p>
 	  <p>Revenue increases:
 	    <span class="score" id="rev_inc"></span></p>
