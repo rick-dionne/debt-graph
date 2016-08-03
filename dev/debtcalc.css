@@ -1,35 +1,48 @@
 body {
+    font-family: 'PT Serif', serif;
+    font-size: 12pt;
+    font-weight: 400;
     margin: auto;
-}
-
-#main_content {
-    margin: auto;
-    width: 760px;
-    height: 630px;
+    width: 800px;
+    height: 660px;
     padding: 10px;
-    background-color: #00548A;
+    background-color: #131543;
+    border: 1px solid white;
 }
 
-#main_content h1,h2,h3,h4,h5 {
+h1,h2,h3,h4,h5 {
     margin: 0px;
     padding: 0px;
-    font-style: italic;
+    font-weight: 700;
     text-align: center;
+    color: #000000;
 }
 
-#main_content h1 {
+h1 {
     color: white;
+    font-size: 25pt;
     padding: 5px 0px;
 }
 
-#main_content p {
-    margin: 0px;
-    padding: 0px;
+h2 {
+    font-size: 18pt;
+}
+
+h3 {
+    font-size: 14pt;
+}
+
+h4 {
+    font-size: 12pt;
+}
+
+h5 {
+    font-size: 10pt;
 }
 
 #left_panel {
     float: left;
-    width: 260px;
+    width: 280px;
     padding: 5px;
     background-color: white;
     text-align: left;
@@ -55,11 +68,23 @@ label .rightJustified {
     position: relative;
     float: left;
     text-align: center;
-    width: 120px;
+    width: 130px;
     padding: 5px 2px;
     background-color: #e0e0e0;
     border-style: solid;
     border-color: white;
+}
+
+.inputField {
+    float: none !important;
+    width: 35px;
+    text-align: right;
+    padding-right: 5px;
+}
+
+.sliderBound {
+    margin: 0px;
+    padding: 0px;
 }
 
 .selector {
@@ -75,13 +100,20 @@ label .rightJustified {
 }
 
 .ui-slider .ui-slider-handle {
-    background: #00548A;
+    background: #047390;
+    color: #ffffff;
+    font-size: 12pt;
+    text-align: center;
+    width: 40px;
+    height: 22px;
+    line-height: 22px;
+    margin-left: -11px;
+    font-family: 'PT Serif', serif;
 }
 
-.inputField {
-    float: none !important;
-    width: 35px;
-    text-align: right;
+.sliderLabel {
+    font-size: 8pt;
+    font-weight: 700;
 }
 
 #reset_area {
@@ -92,58 +124,37 @@ label .rightJustified {
 #right_panel {
     margin-left: 10px;
     float: left;
-    text-align: right;
+    background: #d0d0d0;
 }
 
-#right_panel h2 {
-    margin-top: 10px;
-    text-align: center;
-}
-
-#chart_area {
+.chartContainer {
     background-color: white;
+    margin-bottom: 10px;
+}
+
+.chartBackground {
+    background-size: 100% 100% !important;
+    background-repeat: no-repeat !important;
 }
 
 #trump_background {
     background: url('t-chart-image.png');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
 }
 
 #clinton_background {
     background: url('c-chart-image.png');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+}
+
+#pie_background {
+    background: url('p-chart-image.png');
 }
 
 #series_area {
     height: 300px;
-    width: 480px;
+    width: 500px;
 }
 
-#chart_caption {
-    font-size: 11pt;
-    font-style: italic;
-    text-align: left;
-}
-
-#results_area {
-    padding: 10px 25px;
-    margin: 25px 40px;
-    background-color: white;
-}
-
-#results_area p {
-    text-align: left;
-}
-
-#results_area .score {
-    font-weight: bold;
-    float: right;
-}
-
-#results_area #tax_up {
-    display: inline-block;
-    width: 28px;
-    text-align: right;
+#pie_area {
+    height: 222px;
+    width: 500px;
 }

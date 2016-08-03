@@ -40,7 +40,7 @@ var g_cand_totrev   = 43543.813;
 var g_cand_totspend = 47181.331;
 
 /* slider ranges */
-var g_scale_factor     =    2;
+var g_scale_factor     =    10;
 var g_spending_min     =    0 * g_scale_factor;
 var g_spending_max     =  100 * g_scale_factor;
 var g_spending_default =    0 * g_scale_factor;

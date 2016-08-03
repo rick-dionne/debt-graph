@@ -293,7 +293,10 @@ function slideUpdateFunc(src, tgt, func, otherfunc) {
 	    setSliderVal(tgt,otherval);
 	    updating = false;
 	}
-	$('#'+src+'_in').val(val.toFixed(2));
+	$('#'+src+'_slider').find('.ui-slider-handle').html(
+	    (val + (src == 'tax' ? g_base_toptax : 0)).toFixed()
+	);
+	$('#'+src+'_in').val(val.toFixed());
 	mainCalculate();
     } catch(ex) {
 	console.log(ex);
@@ -312,7 +315,7 @@ function textUpdateFunc(src, min, max) {
 	    val = min;
 	else if ($(src).val() > max)
 	    val = max;
-	$('#'+src+'_in').val(val.toFixed(2));
+	$('#'+src+'_in').val(val.toFixed());
 	setSliderVal(src,val);
 	mainCalculate();
     } catch(ex) {
@@ -350,6 +353,8 @@ function calcRev(taxup, year) {
 function drawChart(spendpct, taxup) {
     var tot_dspend = 0;
     var tot_drev   = 0;
+
+    // prepare series chart
     var seriesData = new google.visualization.DataTable();
     seriesData.addColumn('date', 'Year');
     seriesData.addColumn('number', 'My Plan');
@@ -387,7 +392,7 @@ function drawChart(spendpct, taxup) {
 	chartArea: {
 	    left: '10%',
 	    top: '5%',
-	    width: '80%',
+	    width: '75%',
 	    height: '85%'
 	},
 	vAxis: {
@@ -396,10 +401,12 @@ function drawChart(spendpct, taxup) {
 	    },
 	    viewWindow: {
 		min: 0.5,
-		max: 1.3
+		max: (g_cand_name == 'Trump' ? 1.3 : 1)
 	    },
 	    format: 'percent',
-	    ticks: [0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3]
+	    ticks: (g_cand_name == 'Trump'
+		    ? [0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3]
+		    : [0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.85,0.9,0.95,1])
 	},
 	hAxis: {
 	    textStyle: {
@@ -439,20 +446,44 @@ function drawChart(spendpct, taxup) {
 	containerId: 'series_area'
     });
 
+    // prepare pie chart
+    if (tot_drev-tot_dspend == 0) {
+	tot_dspend = -.1;
+	tot_drev = .1;
+    }
+    var pieData = new google.visualization.DataTable();
+    pieData.addColumn('string','Source');
+    pieData.addColumn('number','Total');
+    pieData.addRows([
+	['Spending Cuts',-tot_dspend],
+	['Tax Increases',tot_drev]
+    ]);
+    var pieFormatter = new google.visualization.NumberFormat({
+	pattern: '$##,### billion'
+    });
+    pieFormatter.format(pieData,1);
+    var pieOpts = {
+	chartArea: {
+	    left: '5%',
+	    top: '5%',
+	    width: '60%',
+	    height: '90%'
+	},
+	legend: 'none',
+	backgroundColor: {
+	    fill: 'transparent'
+	},
+	colors: ['red','blue'],
+	fontSize: 12
+    };
+    var pieChart = new google.visualization.ChartWrapper({
+	chartType: 'PieChart',
+	dataTable: pieData,
+	options: pieOpts,
+	containerId: 'pie_area'
+    });
+    
     // draw to screen
     seriesChart.draw();
-
-    // update text
-    var spend_cut  = 100*(1-((g_cand_totspend + tot_dspend)/g_curr_totspend));
-    var rev_inc = 100*(((g_cand_totrev + tot_drev)/g_curr_totrev)-1);
-    $('#spend_cut').html( spend_cut.toFixed() + '%' );
-    $('#rev_inc').html( rev_inc.toFixed() + '%' );
-    var spend_raw = g_curr_totspend - (g_cand_totspend + tot_dspend);
-    spend_raw = spend_raw > 0 ? spend_raw : 0;
-    var rev_raw = (g_cand_totrev + tot_drev) - g_curr_totrev;
-    rev_raw = rev_raw > 0 ? rev_raw : 0;
-    tot_reduc = spend_raw + rev_raw;
-    tot_reduc = tot_reduc > 0 ? tot_reduc : 1;
-    $('#spend_part').html( (100*(spend_raw/tot_reduc)).toFixed() + '%' );
-    $('#rev_part').html( (100*(rev_raw/tot_reduc)).toFixed() + '%' );
+    pieChart.draw();
 }
