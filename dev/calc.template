@@ -16,7 +16,7 @@
   <body>
     <h1>#CANDT# Debt Control Calculator</h1>
     <div id="left_panel">
-      <div id="settings" class="topLevel">
+      <div id="settings">
 	<h2>Debt Target</h2>
 	<h4>(Percent of GDP in 2026)</h4>
 	<form id="target_select" action="javascript:void(0);">
@@ -30,7 +30,7 @@
 	    No Target</label>
 	</form>
       </div>
-      <div id="slider_area" class="topLevel">
+      <div id="slider_area">
 	<div class="slideContainer">
 	  <h4>Cut Spending</h4>
 	  <h5>Excluding...</h5>
@@ -75,7 +75,7 @@
 	  <div class="sliderLabel">top marginal rate</div>
 	</div>
       </div>
-      <div id="reset_area" class="topLevel">
+      <div id="reset_area">
 	<input type="button" id="reset_button" value="Reset"/>
       </div>
     </div>

@@ -42,6 +42,7 @@ h5 {
 #left_panel {
     float: left;
     width: 270px;
+    height: 585px;
     background-color: white;
     text-align: left;
 }
