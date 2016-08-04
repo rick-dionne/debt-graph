@@ -294,7 +294,7 @@ function slideUpdateFunc(src, tgt, func, otherfunc) {
 	    updating = false;
 	}
 	$('#'+src+'_slider').find('.ui-slider-handle').html(
-	    (val + (src == 'tax' ? g_base_toptax : 0)).toFixed()
+	    (Math.abs(val + (src == 'tax' ? g_base_toptax : 0))).toFixed()
 	);
 	$('#'+src+'_in').val(val.toFixed());
 	mainCalculate();
@@ -448,18 +448,18 @@ function drawChart(spendpct, taxup) {
 
     // prepare pie chart
     if (tot_drev-tot_dspend == 0) {
-	tot_dspend = -.1;
-	tot_drev = .1;
+	tot_dspend = -10;
+	tot_drev = 10;
     }
     var pieData = new google.visualization.DataTable();
     pieData.addColumn('string','Source');
     pieData.addColumn('number','Total');
     pieData.addRows([
-	['Spending Cuts',-tot_dspend],
-	['Tax Increases',tot_drev]
+	['Spending Cuts',-tot_dspend/1000],
+	['Tax Increases',tot_drev/1000]
     ]);
     var pieFormatter = new google.visualization.NumberFormat({
-	pattern: '$##,### billion'
+	pattern: '$##.# trillion'
     });
     pieFormatter.format(pieData,1);
     var pieOpts = {
