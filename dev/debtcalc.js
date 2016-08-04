@@ -189,7 +189,7 @@ function configureTweet(tgtval) {
 	achieve = 'Balance the Budget';
 	break;
     case 'custom':
-	achieve = 'Reduce Debt to ' + g_custom_target + '%';
+	achieve = 'Reduce Debt to ' + (g_custom_target*100).toFixed() + '% of GDP';
 	break;
     case 'free':
     default:
