@@ -54,6 +54,6 @@ var g_custom_max     = 0.87;
 var g_custom_default = 0.66;
 
 /* chart styling */
-var g_line_color = 'blue';
+var g_line_color = '#41479d';
 var g_cand_name = 'Clinton';
 var g_base_toptax = 44;

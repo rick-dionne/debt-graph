@@ -51,6 +51,6 @@ var g_custom_max     = 1.27;
 var g_custom_default = 0.66;
 
 /* for results display */
-var g_line_color = 'red';
+var g_line_color = '#bb3224';
 var g_cand_name = 'Trump';
 var g_base_toptax = 25;

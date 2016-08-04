@@ -13,7 +13,6 @@ build:
 	cp -f dev/*.css  $(TARGET)
 	cp -f dev/*.js   $(TARGET)
 	cp -f dev/*.png  $(TARGET)
-
 clean:
 	rm -f *~
 	rm -f dev/*~
