@@ -88,7 +88,7 @@
 	  <div id="series_area"> </div>
 	</div>
       </div>
-      <div id="series_container" class="chartContainer">
+      <div id="pie_container" class="chartContainer">
        <h2>Debt Reduction Breakdown</h2>
        <div id="pie_background" class="chartBackground">
 	 <div id="pie_area"> </div>
