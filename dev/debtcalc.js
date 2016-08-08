@@ -183,26 +183,25 @@ function configureTweet(tgtval) {
     var achieve;
     switch (tgtval) {
     case 'stabilize':
-	achieve = 'Stabilize the Debt';
+	achieve = 'stabilize the debt';
 	break;
     case 'balance':
-	achieve = 'Balance the Budget';
+	achieve = 'balance the budget';
 	break;
     case 'custom':
-	achieve = 'Reduce Debt to ' + (g_custom_target*100).toFixed() + '% of GDP';
+	achieve = 'reduce debt to ' + (g_custom_target*100).toFixed() + '% of GDP';
 	break;
     case 'free':
     default:
-	achieve = 'Improve Fiscal Responsibility';
+	achieve = 'improve fiscal responsibility';
     }
-    $('#bottom_banner').empty();
-    $('#bottom_banner').append($('<a></a>').attr({
+    $('#tweet_container').empty();
+    $('#tweet_container').append($('<a></a>').attr({
 	'href': 'https://twitter.com/share',
 	'class': 'twitter-share-button',
-	'data-text': 'I fixed ' + g_cand_name + '\'s Plan to ' + achieve + ' and you can too:',
+	'data-text': 'I fixed ' + g_cand_name + '\'s plan to ' + achieve + ' and you can too:',
 	'data-url': 'http://crfb.org/blogs/interactive-tool-reforming-candidates-fiscal-plans',
 	'data-via': 'BudgetHawks',
-	'data-size': 'large'
     }));
     twttr.widgets.load();
 }

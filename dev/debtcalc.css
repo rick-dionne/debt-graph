@@ -4,7 +4,7 @@ body {
     font-weight: 400;
     margin: auto;
     width: 740px;
-    height: 695px;
+    height: 690px;
     padding: 5px;
     background-color: #131543;
 }
@@ -164,4 +164,21 @@ label .rightJustified {
 #pie_area {
     height: 240px;
     width: 430px;
+}
+
+#bottom_banner {
+    line-height: 10px;
+}
+
+#tweet_container,#fb_share {
+    float: left;
+    height: 20px !important;
+    width: 60px !important;
+    margin-right: 2px;
+}
+
+#fb_share iframe,#fb_share span {
+    vertical-align: top !important;
+    height: 20px !important;
+    width: 60px !important;
 }
