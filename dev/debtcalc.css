@@ -2,10 +2,13 @@ body {
     font-family: 'PT Serif', serif;
     font-size: 12pt;
     font-weight: 400;
+}
+
+#main_content {
     margin: auto;
     width: 740px;
     height: 690px;
-    padding: 5px;
+    padding: 10px;
     background-color: #131543;
 }
 
