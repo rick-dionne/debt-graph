@@ -24,7 +24,7 @@ var g_tax_quadfact = 0;
 var g_tax_linfact  = 0;
 var g_stable_target = 0.77;
 var g_custom_target = g_custom_default;
-var g_balance_target = 0.60;
+var g_balance_target = 0.57;
 
 
 /* chart loaded flag */

@@ -8,9 +8,10 @@
     <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <link href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700" rel="stylesheet" type="text/css"/>
-    <link type="text/css" rel="stylesheet" href="debtcalc.css" />
-    <script type="text/javascript" src="#CANDF#data.js"> </script>
-    <script type="text/javascript" src="debtcalc.js"> </script>
+    <link type="text/css" rel="stylesheet" href="style.css" />
+    <script type="text/javascript" src="src/cdata.js"> </script>
+    <script type="text/javascript" src="src/#CANDF#data.js"> </script>
+    <script type="text/javascript" src="src/debtcalc.js"> </script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="icon" type="image/png" href="img/favicon.png" />
     <title>The #CANDT# Debt-Fixer</title>
@@ -34,9 +35,9 @@
 	    <label><input type="radio" name="target" value="stabilize" checked="checked"/>
 	      Stabilize the Debt: <span class="rightJustified">77%</span></label><br/>
 	    <label><input type="radio" name="target" value="balance"/>
-	      Balance the Budget: <span class="rightJustified">60%</span></label><br/>
+	      Balance the Budget: <span class="rightJustified">57%</span></label><br/>
 	    <label><input type="radio" name="target" value="custom"/>
-	      Choose My Own: <span class="rightJustified"><input type="text" class="inputField" id="custom_target" value="68"/>%</span></label><br/>	    
+	      Choose My Own: <span class="rightJustified"><input type="text" class="inputField" id="custom_target" value="67"/>%</span></label><br/>
 	    <label><input type="radio" name="target" value="free"/>
 	      No Target</label>
 	  </form>

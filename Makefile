@@ -8,11 +8,12 @@ all: build
 build:
 	@mkdir -p $(TARGET)
 	@mkdir -p $(TARGET)/img
+	@mkdir -p $(TARGET)/src
 	@deploy.sh
 	@echo 'target: ' $(TARGET)
 	cp -f dev/*.html $(TARGET)
 	cp -f dev/*.css  $(TARGET)
-	cp -f dev/*.js   $(TARGET)
+	cp -f dev/src/*.js   $(TARGET)/src
 	cp -f dev/img/*.png  $(TARGET)/img
 clean:
 	rm -f *~
