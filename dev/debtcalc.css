@@ -148,15 +148,15 @@ label .rightJustified {
 }
 
 #trump_background {
-    background: url('t-chart-image.png');
+    background: url('img/t-chart-image.png');
 }
 
 #clinton_background {
-    background: url('c-chart-image.png');
+    background: url('img/c-chart-image.png');
 }
 
 #pie_background {
-    background: url('p-chart-image.png');
+    background: url('img/p-chart-image.png');
 }
 
 #series_area {
@@ -173,15 +173,54 @@ label .rightJustified {
     line-height: 10px;
 }
 
-#tweet_container,#fb_share {
-    float: left;
-    height: 20px !important;
-    width: 60px !important;
-    margin-right: 2px;
+#bottom_banner ul {
+    padding: 0px;
+    margin: 0px;
 }
 
-#fb_share iframe,#fb_share span {
-    vertical-align: top !important;
-    height: 20px !important;
-    width: 60px !important;
+.social_item {
+    display: inline-block;
+    margin: 2px 0px;
+}
+
+#twitter_link {
+    background-color: #1da1f2;
+}
+
+#facebook_link {
+    background-color: #3b5998;
+}
+
+#embed_link {
+    background-color: #505050;
+}
+
+.social_link {
+    display: block;
+    padding: 4px 8px;
+    color: #ffffff;
+    font-size: 12pt;
+    font-weight: 400;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.social_link:hover {
+    opacity: 0.9;
+}
+
+.social_icon {
+    height: 25px;
+    font-size: 19px;
+    line-height: 25px;
+    vertical-align: text-top;
+}
+
+.social_text {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#twitter_link .social_text {
+    margin-left: -5px;
 }

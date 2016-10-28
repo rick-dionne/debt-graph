@@ -6,6 +6,7 @@
  * to set global variables and load underlying datasets
  *
  * Rick Dionne, July 2016
+ * Updated by Rick Dionne, October 2016
  */
 
 /* copy global vars */
@@ -97,6 +98,19 @@ function chartLoaded() {
 	reset();
     });
 
+    // initialize facebook share button
+    $('#facebook_link').on('click',function() {
+	var h=400;
+	var w=680;
+	var y = window.outerHeight / 2 + window.screenY - (h / 2);
+	var x = window.outerWidth / 2 + window.screenX - (w / 2);
+        window.open(
+            'https://www.facebook.com/sharer/sharer.php?u='+
+		encodeURIComponent('http://crfb.org'),
+            'facebook-share-dialog',
+	    'width='+w+',height='+h+',top='+y+',left='+x)
+    });
+
     // calculate and display charts
     g_chart_loaded = true;
     setTarget('stabilize');
@@ -180,30 +194,28 @@ function roundUp(num) {
 }
 
 function configureTweet(tgtval) {
-    var achieve;
+    var achieve = encodeURI('I fixed ' + g_cand_name + '\'s plan to ');
     switch (tgtval) {
     case 'stabilize':
-	achieve = 'stabilize the debt';
+	achieve += encodeURI('stabilize the debt');
 	break;
     case 'balance':
-	achieve = 'balance the budget';
+	achieve += encodeURI('balance the budget');
 	break;
     case 'custom':
-	achieve = 'reduce debt to ' + (g_custom_target*100).toFixed() + '% of GDP';
+	achieve += encodeURI('reduce debt to '
+			     + (g_custom_target*100).toFixed() + '% of GDP');
 	break;
     case 'free':
     default:
-	achieve = 'improve fiscal responsibility';
+	achieve = encodeURI('improve fiscal responsibility');
     }
-    $('#tweet_container').empty();
-    $('#tweet_container').append($('<a></a>').attr({
-	'href': 'https://twitter.com/share',
-	'class': 'twitter-share-button',
-	'data-text': 'I fixed ' + g_cand_name + '\'s plan to ' + achieve + ' and you can too:',
-	'data-url': 'http://crfb.org/blogs/interactive-tool-reforming-candidates-fiscal-plans',
-	'data-via': 'BudgetHawks',
-    }));
-    twttr.widgets.load();
+    achieve += encodeURI(' and you can too:');
+    var tweetlink = 'https://twitter.com/intent/tweet';
+    tweetlink += '?text='+achieve;
+    tweetlink += '&url='+encodeURI('http://crfb.org'); // point to blog here
+    tweetlink += '&via=BudgetHawks';
+    $('#twitter_link').attr('href',tweetlink);
 }
 
 function customHandler() {
