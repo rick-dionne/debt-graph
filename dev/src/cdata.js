@@ -21,3 +21,7 @@ var g_int_matrix = [
 ];
 var g_curr_totrev   = 41658.000;
 var g_curr_totspend = 45391.516;
+
+/* Spending Cut Exclusions (src: CBO August 2016) */
+var g_soc_sec_cost = [944.442,999.171,1061.417,1128.338,1199.330,1273.840,1352.207,1433.976,1519.554,1608.665];
+var g_medicare_cost = [707.941,715.773,790.077,848.103,909.907,1016.854,1048.415,1076.411,1193.705,1288.773];
