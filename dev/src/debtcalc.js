@@ -106,7 +106,7 @@ function chartLoaded() {
 	var x = window.outerWidth / 2 + window.screenX - (w / 2);
         window.open(
             'https://www.facebook.com/sharer/sharer.php?u='+
-		encodeURIComponent('http://crfb.org'),
+		encodeURIComponent('http://crfb.org/blogs/interactive-tool-reforming-candidates-fiscal-plans'),
             'facebook-share-dialog',
 	    'width='+w+',height='+h+',top='+y+',left='+x)
     });
@@ -213,7 +213,7 @@ function configureTweet(tgtval) {
     achieve += encodeURI(' and you can too:');
     var tweetlink = 'https://twitter.com/intent/tweet';
     tweetlink += '?text='+achieve;
-    tweetlink += '&url='+encodeURI('http://crfb.org'); // point to blog here
+    tweetlink += '&url='+encodeURI('http://crfb.org/blogs/interactive-tool-reforming-candidates-fiscal-plans');
     tweetlink += '&via=BudgetHawks';
     $('#twitter_link').attr('href',tweetlink);
 }
