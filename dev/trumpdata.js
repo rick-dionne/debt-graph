@@ -50,7 +50,7 @@ var g_tax_default      =    0 * g_scale_factor;
 /* fixed target bounds */
 var g_custom_min     = 0.50;
 var g_custom_max     = 1.05;
-var g_custom_default = 0.66;
+var g_custom_default = 0.68;
 
 /* for results display */
 var g_line_color = '#bb3224';

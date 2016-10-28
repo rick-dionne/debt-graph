@@ -22,9 +22,9 @@ var g_target_value = 0;
 var g_spend_factor = 0;
 var g_tax_quadfact = 0;
 var g_tax_linfact  = 0;
-var g_stable_target = 0.75;
+var g_stable_target = 0.77;
 var g_custom_target = g_custom_default;
-var g_balance_target = 0.57;
+var g_balance_target = 0.60;
 
 
 /* chart loaded flag */
