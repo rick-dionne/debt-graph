@@ -4,6 +4,7 @@
  * relies on datafile - trumpdata.js or clintondata.js
  * one of those scripts MUST be included before this one
  * to set global variables and load underlying datasets
+ * October 2016: also relies on gdata.js
  *
  * Rick Dionne, July 2016
  * Updated by Rick Dionne, October 2016
