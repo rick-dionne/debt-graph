@@ -7,7 +7,7 @@ body {
 #main_content {
     margin: auto;
     width: 740px;
-    height: 595px;
+    height: 630px;
     padding: 10px;
     background-color: #131543;
 }
@@ -45,7 +45,7 @@ h5 {
 #left_panel {
     float: left;
     width: 290px;
-    height: 505px;
+    height: 540px;
     padding: 5px;
     background-color: white;
     text-align: left;
@@ -91,6 +91,7 @@ label .rightJustified {
 
 .selector {
     text-align: left;
+    height: 85px;
 }
 
 .inputSlider {
@@ -130,7 +131,7 @@ label .rightJustified {
     padding-left: 10px;
     float: left;
     background: #656565;
-    height: 515px;
+    height: 550px;
 }
 
 .chartContainer {
@@ -165,7 +166,7 @@ label .rightJustified {
 }
 
 #pie_area {
-    height: 145px;
+    height: 180px;
     width: 430px;
 }
 

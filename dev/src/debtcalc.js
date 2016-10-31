@@ -257,6 +257,8 @@ function updateBaseSettings() {
 	    t_base_spend[i] -= g_soc_sec_cost[i];
 	if ($('#medicare_exclude').prop('checked'))
 	    t_base_spend[i] -= g_medicare_cost[i];
+	if ($('#defense_exclude').prop('checked'))
+	    t_base_spend[i] -= g_defense_cost[i];
 	t_base_spend[i] *= -1;
     }
     my_base_spend = t_base_spend;

@@ -55,6 +55,10 @@
 		<input type="checkbox" name="medicare_exlude" id="medicare_exclude"/>
 		<label for="medicare_exclude">Medicare</label>
 	      </div>
+	      <div class="input exclude" id="defense_container">
+		<input type="checkbox" name="defense_exlude" id="defense_exclude"/>
+		<label for="defense_exclude">Defense</label>
+	      </div>
 	      <div class="inFieldContainer">
 		<span>by <input type="text" id="spending_in" class="inputField" value="0"/> percent</span>
 	      </div>
@@ -77,6 +81,7 @@
 		  High Earners
 		</label>
 	      </form>
+	      <br/>
 	      <div class="inFieldContainer">
 		<span>by <input type="text" id="tax_in" class="inputField" value="0"/> points</span>
 	      </div>
