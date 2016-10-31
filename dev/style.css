@@ -94,6 +94,10 @@ label .rightJustified {
     height: 85px;
 }
 
+.inputField {
+    width: 30px;
+}
+
 .inputSlider {
     width: 10px;
     margin: 0 auto;
