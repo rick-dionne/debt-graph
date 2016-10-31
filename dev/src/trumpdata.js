@@ -22,7 +22,7 @@ var g_spending_min     =    0 * g_scale_factor;
 var g_spending_max     =  100 * g_scale_factor;
 var g_spending_default =    0 * g_scale_factor;
 var g_tax_min          =    0 * g_scale_factor;
-var g_tax_max          =   40 * g_scale_factor;
+var g_tax_max          =   32 * g_scale_factor;
 var g_tax_default      =    0 * g_scale_factor;
 
 /* fixed target bounds */
@@ -33,4 +33,4 @@ var g_custom_default = 0.67;
 /* for results display */
 var g_line_color = '#bb3224';
 var g_cand_name = 'Trump';
-var g_base_toptax = 25;
+var g_base_toptax = 33;

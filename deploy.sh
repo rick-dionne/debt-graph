@@ -15,6 +15,6 @@ sed -e 's/#CANDT#/Clinton/g' \
 echo "  built clinton"
 sed -e 's/#CANDT#/Trump/g' \
     -e 's/#CANDF#/trump/g' \
-    -e 's/#TMIN#/25/g' dev/calc.template > dev/trump.html
+    -e 's/#TMIN#/33/g' dev/calc.template > dev/trump.html
 echo "  built trump"
 echo "...done"
