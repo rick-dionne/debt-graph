@@ -150,7 +150,6 @@ function setTarget(tgtval) {
     }
     if (g_target_fixed) {
 	g_target_value = my_base_debt[9] - (targetpct * g_base_gdp[9]);
-	/* debug console.log('setTarget(): g_target_val = '+g_target_value.toFixed(3));//*/
 	balanceSliders();
     }
         configureTweet(tgtval);
@@ -164,13 +163,11 @@ function balanceSliders() {
     } else {
 	taxpts = roundUp(((g_target_value/2) / g_tax_linfact));
     }
-    /* debug console.log('balanceSliders(): taxpts = '+taxpts); //*/
     setSliderVal('tax',taxpts);
 }
 
 function solveForSpend(taxpts) {
     var spendpct = roundUp((g_target_value - (g_tax_linfact * taxpts) - (g_tax_quadfact * Math.pow(taxpts,2)))/ g_spend_factor);
-    /* debug console.log('solveForSpend('+taxpts+'): spendpct = '+spendpct); //*/
     return spendpct;
 }
 
@@ -186,7 +183,6 @@ function solveForTax(spendpct) {
     } else {
 	taxpts = roundUp(((g_target_value - (g_spend_factor * spendpct)) / g_tax_linfact));
     }
-    /* debug console.log('solveForTax('+spendpct+'): taxpts = '+taxpts); //*/
     return taxpts;
 }
 
@@ -257,8 +253,6 @@ function updateBaseSettings() {
 	    t_base_spend[i] -= g_soc_sec_cost[i];
 	if ($('#medicare_exclude').prop('checked'))
 	    t_base_spend[i] -= g_medicare_cost[i];
-	if ($('#defense_exclude').prop('checked'))
-	    t_base_spend[i] -= g_defense_cost[i];
 	t_base_spend[i] *= -1;
     }
     my_base_spend = t_base_spend;
@@ -282,11 +276,6 @@ function updateBaseSettings() {
 	    }
 	    t_tax_linfact += (1 + sum) * i_tax_linfact;
 	    t_tax_quadfact += (1 + sum) * i_tax_quadfact;
-	    /* debug
-	    console.log('sum['+i+']: '+sum);
-	    console.log('linfact['+i+']: '+(i_tax_linfact*(sum+1)));
-	    console.log('quadfact['+i+']: '+(i_tax_quadfact*(sum+1)));
-	    //*/
 	} else {
 	    t_tax_linfact  += ((sum+1) * g_base_taxfull[i]);
 	}	
@@ -294,13 +283,6 @@ function updateBaseSettings() {
     g_spend_factor = Math.round(t_spend_factor * 1000) / 1000;
     g_tax_quadfact = Math.round(t_tax_quadfact * 1000) / 1000;
     g_tax_linfact = Math.round(t_tax_linfact * 1000) / 1000;
-
-    /* debug
-    console.log('updateBaseSettings():');
-    console.log('  g_spend_factor = ' + g_spend_factor);
-    console.log('  g_tax_quadfact = ' + g_tax_quadfact);
-    console.log('  g_tax_linfact = ' + g_tax_linfact);
-    //*/
     
     // reset sliders
     if (g_target_fixed)
